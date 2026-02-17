@@ -51,10 +51,7 @@ export function Sidebar({ className }: { className?: string }) {
         ))}
       </div>
       <div className="p-4 border-t">
-         <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-foreground">
-            <Settings className="mr-2 h-4 w-4" />
-            Settings
-          </Button>
+       <h2>Niki niki</h2>
       </div>
     </div>
   )

@@ -48,6 +48,26 @@ async function fetchTMDB<T>(endpoint: string, params: Record<string, string> = {
   return res.json();
 }
 
+export type TVShow = {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  first_air_date: string;
+  vote_average: number;
+  genre_ids: number[];
+};
+
+export type TVDetails = TVShow & {
+  genres: { id: number; name: string }[];
+  number_of_seasons: number;
+  number_of_episodes: number;
+  status: string;
+  tagline: string;
+  cast: CastMember[];
+};
+
 export const tmdb = {
   getTrending: async () => {
     return fetchTMDB<{ results: Movie[] }>("/trending/movie/week");
@@ -68,5 +88,25 @@ export const tmdb = {
   },
   getRecommendations: async (id: string | number) => {
       return fetchTMDB<{ results: Movie[] }>(`/movie/${id}/recommendations`);
+  },
+  // TV Methods
+  getTrendingTV: async () => {
+    return fetchTMDB<{ results: TVShow[] }>("/trending/tv/week");
+  },
+  getPopularTV: async () => {
+    return fetchTMDB<{ results: TVShow[] }>("/tv/popular");
+  },
+  getTVDetails: async (id: string) => {
+    const [details, credits] = await Promise.all([
+      fetchTMDB<TVDetails>(`/tv/${id}`),
+      fetchTMDB<{ cast: CastMember[] }>(`/tv/${id}/credits`),
+    ]);
+    return { ...details, cast: credits.cast.slice(0, 10) };
+  },
+  getTVRecommendations: async (id: string | number) => {
+    return fetchTMDB<{ results: TVShow[] }>(`/tv/${id}/recommendations`);
+  },
+  searchTV: async (query: string) => {
+    return fetchTMDB<{ results: TVShow[] }>("/search/tv", { query });
   },
 };

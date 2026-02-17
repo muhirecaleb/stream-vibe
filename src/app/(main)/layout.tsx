@@ -1,5 +1,7 @@
 import { Sidebar } from "@/components/sidebar"
 import { ModeToggle } from "@/components/theme-toggle"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function MainLayout({
   children,
@@ -16,7 +18,10 @@ export default function MainLayout({
         {/* Top Header for Mobile or Global Actions */}
         <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
            {/* Mobile Menu Trigger would go here */}
-           <div className="md:hidden font-bold">StreamVibe</div>
+           <Link href="/dashboard" className="md:hidden font-bold flex items-center gap-2">
+             <Image src="/logo.png" alt="Logo" width={24} height={24} className="h-6 w-6 object-contain" />
+             StreamVibe
+           </Link>
 
            <div className="flex items-center gap-4 ml-auto">
              <ModeToggle />

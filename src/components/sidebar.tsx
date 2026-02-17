@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -29,10 +30,10 @@ export function Sidebar({ className }: { className?: string }) {
   return (
     <div className={cn("hidden md:flex flex-col h-screen w-64 border-r fixed left-0 top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60", className)}>
       <div className="p-6">
-        <h2 className="text-2xl font-bold tracking-tight text-primary flex items-center gap-2">
-          <Film className="h-6 w-6" />
+        <Link href="/dashboard" className="text-2xl font-bold tracking-tight text-primary flex items-center gap-2">
+          <Image src="/logo.png" alt="StreamVibe Logo" width={32} height={32} className="h-8 w-8 object-contain" />
           StreamVibe
-        </h2>
+        </Link>
       </div>
       <div className="flex-1 px-4 space-y-2 overflow-auto">
         {sidebarItems.map((item) => (

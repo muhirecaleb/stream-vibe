@@ -1,0 +1,60 @@
+"use client"
+
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { 
+  Home, 
+  Search, 
+  Film, 
+  Tv, 
+  Heart, 
+  Clock, 
+  Settings, 
+} from "lucide-react"
+
+const sidebarItems = [
+  { icon: Home, label: "Home", href: "/dashboard" },
+  { icon: Search, label: "Search", href: "/search" },
+  { icon: Film, label: "Movies", href: "/movies" },
+  { icon: Tv, label: "TV Shows", href: "/tv" },
+  { icon: Heart, label: "Favorites", href: "/profile/favorites" },
+  { icon: Clock, label: "History", href: "/profile/history" },
+]
+
+export function Sidebar({ className }: { className?: string }) {
+  const pathname = usePathname()
+
+  return (
+    <div className={cn("hidden md:flex flex-col h-screen w-64 border-r fixed left-0 top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60", className)}>
+      <div className="p-6">
+        <h2 className="text-2xl font-bold tracking-tight text-primary flex items-center gap-2">
+          <Film className="h-6 w-6" />
+          StreamVibe
+        </h2>
+      </div>
+      <div className="flex-1 px-4 space-y-2 overflow-auto">
+        {sidebarItems.map((item) => (
+          <Button
+            key={item.href}
+            variant={pathname === item.href ? "secondary" : "ghost"}
+            className={cn("w-full justify-start", pathname === item.href && "bg-secondary/50 font-bold")}
+            asChild
+          >
+            <Link href={item.href}>
+              <item.icon className="mr-2 h-4 w-4" />
+              {item.label}
+            </Link>
+          </Button>
+        ))}
+      </div>
+      <div className="p-4 border-t">
+         <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-foreground">
+            <Settings className="mr-2 h-4 w-4" />
+            Settings
+          </Button>
+      </div>
+    </div>
+  )
+}

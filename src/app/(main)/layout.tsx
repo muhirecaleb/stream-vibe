@@ -23,11 +23,7 @@ export default function MainLayout({
              StreamVibe
            </Link>
 
-           <div className="flex items-center gap-4 ml-auto">
-             <ModeToggle />
-             {/* User Profile Dropdown would go here */}
-             <div className="h-8 w-8 rounded-full bg-primary/20" />
-           </div>
+           
         </header>
 
         <main className="container py-6">

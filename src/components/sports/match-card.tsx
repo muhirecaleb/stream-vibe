@@ -27,16 +27,28 @@ export function MatchCard({ match }: MatchCardProps) {
         />
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-secondary/50 to-muted p-4 text-center">
-            <div className="flex items-center gap-4 mb-4">
-                {match.teams?.home?.badge && (
-                    <img src={`https://streamed.pk${match.teams.home.badge}`} alt="" className="h-12 w-12 object-contain" />
-                )}
-                <span className="text-xl font-bold italic">VS</span>
-                {match.teams?.away?.badge && (
-                    <img src={`https://streamed.pk${match.teams.away.badge}`} alt="" className="h-12 w-12 object-contain" />
-                )}
+            <div className="flex items-center justify-center gap-6 mb-2">
+                <div className="flex flex-col items-center gap-2 max-w-[100px]">
+                    {match.teams?.home?.badge && (
+                        <img src={`https://streamed.pk${match.teams.home.badge}`} alt="" className="h-12 w-12 object-contain" />
+                    )}
+                    <span className="text-xs font-bold line-clamp-2 leading-tight">
+                        {match.teams?.home?.name || match.title.split(' vs ')[0]}
+                    </span>
+                </div>
+                
+                <span className="text-xl font-black italic text-primary">VS</span>
+                
+                <div className="flex flex-col items-center gap-2 max-w-[100px]">
+                    {match.teams?.away?.badge && (
+                        <img src={`https://streamed.pk${match.teams.away.badge}`} alt="" className="h-12 w-12 object-contain" />
+                    )}
+                    <span className="text-xs font-bold line-clamp-2 leading-tight">
+                        {match.teams?.away?.name || match.title.split(' vs ')[1] || ""}
+                    </span>
+                </div>
             </div>
-            <div className="text-sm font-medium opacity-50 uppercase tracking-widest">{match.category}</div>
+            <div className="text-[10px] font-medium opacity-50 uppercase tracking-[0.2em] mt-2">{match.category}</div>
         </div>
       )}
 

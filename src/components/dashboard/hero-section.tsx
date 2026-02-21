@@ -40,7 +40,7 @@ export function HeroSection({ movie }: HeroSectionProps) {
             </Link>
           </Button>
           <Button asChild variant="outline" size="lg" className="gap-2 border-white/20 bg-white/5 text-white hover:bg-white/10">
-            <Link href={`/movie/${movie.id}`}>
+            <Link href={`/watch/${movie.id}`}>
               <Info className="h-5 w-5" />
               More Info
             </Link>

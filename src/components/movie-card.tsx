@@ -18,7 +18,7 @@ export function MovieCard({ movie, type = "movie", className }: MovieCardProps) 
   const [isFavorite, setIsFavorite] = useState(false);
   const title = (movie as Movie).title || (movie as TVShow).name;
   const date = (movie as Movie).release_date || (movie as TVShow).first_air_date;
-  const link = type === "movie" ? `/movie/${movie.id}` : `/tv/${movie.id}`;
+  const link = type === "movie" ? `/watch/${movie.id}` : `/watch/tv/${movie.id}`;
 
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");

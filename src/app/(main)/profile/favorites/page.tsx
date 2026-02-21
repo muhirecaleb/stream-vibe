@@ -1,8 +1,44 @@
-import { tmdb } from "@/services/tmdb";
-import { MovieGrid } from "@/components/dashboard/movie-grid";
+"use client";
 
-export default async function FavoritesPage() {
-  const { results: favorites } = await tmdb.getPopular();
+import { MovieGrid } from "@/components/dashboard/movie-grid";
+import { useState, useEffect } from "react";
+import { type Movie, type TVShow } from "@/services/tmdb";
+
+export default function FavoritesPage() {
+  const [favorites, setFavorites] = useState<(Movie | TVShow)[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadFavorites = () => {
+    if (typeof window !== "undefined") {
+      const saved = JSON.parse(localStorage.getItem("favorites") || "[]");
+      setFavorites(saved);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadFavorites();
+
+    const handleUpdate = () => {
+      loadFavorites();
+    };
+
+    window.addEventListener("favorites-updated", handleUpdate);
+    return () => window.removeEventListener("favorites-updated", handleUpdate);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="space-y-8 animate-pulse">
+        <div className="h-10 w-64 bg-muted rounded-lg" />
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="aspect-[2/3] bg-muted rounded-lg" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -11,19 +47,19 @@ export default async function FavoritesPage() {
         <p className="text-muted-foreground mt-2">Movies and TV shows you&apos;ve saved to your list.</p>
       </div>
 
-      <MovieGrid 
-        title="Saved for later" 
-        movies={favorites.slice(0, 10)} 
-      />
-      
-      {favorites.length === 0 && (
+      {favorites.length > 0 ? (
+        <MovieGrid 
+          title="Saved for later" 
+          movies={favorites} 
+        />
+      ) : (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <div className="h-20 w-20 rounded-full bg-muted flex items-center justify-center mb-4">
             <span className="text-4xl font-bold text-muted-foreground">?</span>
           </div>
           <h2 className="text-2xl font-bold">Your list is empty</h2>
           <p className="text-muted-foreground mt-2 max-w-sm">
-            Start adding movies and TV shows to your favorites to see them here.
+            Start adding movies and TV shows to your favorites by clicking the heart icon!
           </p>
         </div>
       )}

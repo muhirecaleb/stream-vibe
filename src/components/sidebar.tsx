@@ -18,10 +18,7 @@ import {
 const sidebarItems = [
   { icon: Home, label: "Home", href: "/dashboard" },
   { icon: Search, label: "Search", href: "/search" },
-  { icon: Film, label: "Movies", href: "/movies" },
-  { icon: Tv, label: "TV Shows", href: "/tv" },
   { icon: Heart, label: "Favorites", href: "/profile/favorites" },
-  { icon: Clock, label: "History", href: "/profile/history" },
 ]
 
 export function Sidebar({ className }: { className?: string }) {

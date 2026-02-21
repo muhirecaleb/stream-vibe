@@ -8,17 +8,15 @@ import { Button } from "@/components/ui/button"
 import { 
   Home, 
   Search, 
-  Film, 
-  Tv, 
-  Heart, 
-  Clock, 
-  Settings, 
+  Heart,
+  Trophy,
 } from "lucide-react"
 
 const sidebarItems = [
   { icon: Home, label: "Home", href: "/dashboard" },
   { icon: Search, label: "Search", href: "/search" },
   { icon: Heart, label: "Favorites", href: "/profile/favorites" },
+  { icon: Trophy, label: "Live Sports", href: "/matches" },
 ]
 
 export function Sidebar({ className }: { className?: string }) {

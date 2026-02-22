@@ -1,5 +1,6 @@
 import { sportsService } from "@/services/sports";
-import { Trophy, Globe, Zap } from "lucide-react";
+import { Globe, Zap } from "lucide-react";
+import { SportPlayer } from "@/components/sports/sport-player";
 
 interface PageProps {
   params: Promise<{ source: string; id: string }>;
@@ -56,29 +57,10 @@ export default async function SportsWatchPage({ params, searchParams }: PageProp
       </div>
 
       {/* Player Area */}
-      <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-2xl ring-1 ring-white/10">
-        {currentStream ? (
-            <iframe
-                src={currentStream.embedUrl}
-                className="absolute inset-0 h-full w-full"
-                allowFullScreen
-                frameBorder="0"
-                scrolling="no"
-                allow="autoplay; encrypted-media"
-            />
-        ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                <Trophy className="h-16 w-16 text-muted-foreground mb-4 opacity-20" />
-                <h2 className="text-xl font-bold text-white">No streams available for this source</h2>
-                <p className="text-muted-foreground mt-2 max-w-md">
-                    We couldn&apos;t find any active streams for this specific source. Please try another match or check back later.
-                </p>
-                <a href="/matches" className="mt-6 text-primary hover:underline font-medium">
-                    Back to Matches
-                </a>
-            </div>
-        )}
+      <div className="w-full">
+        <SportPlayer embedUrl={currentStream?.embedUrl} />
       </div>
+
 
       {/* Info/Warning */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -42,7 +42,7 @@ export default async function WatchTVPage({ params, searchParams }: PageProps) {
                 </div>
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                    <Calendar className="h-3 w-3" />
-                   {tvShow.first_air_date.split('-')[0]}
+                   {tvShow.first_air_date?.split('-')[0] || "N/A"}
                 </div>
              </div>
              <h1 className="text-3xl font-bold md:text-4xl text-white tracking-tight">
@@ -114,4 +114,3 @@ export default async function WatchTVPage({ params, searchParams }: PageProps) {
     </div>
   );
 }
-

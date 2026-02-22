@@ -76,11 +76,12 @@ export function EpisodeSelector({
                       src={`https://image.tmdb.org/t/p/w500${episode.still_path}`}
                       alt={episode.name}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-zinc-900 absolute inset-0">
-                      <Play className="h-8 w-8 text-white/20" />
+                    <div className="flex h-full w-full items-center justify-center bg-zinc-900 absolute inset-0 text-white/20">
+                      <Play className="h-8 w-8" />
                     </div>
                   )}
                   {isActive && (
@@ -124,11 +125,12 @@ export function EpisodeSelector({
                       src={`https://image.tmdb.org/t/p/w300${episode.still_path}`}
                       alt={episode.name}
                       fill
+                      sizes="200px"
                       className="object-cover"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-zinc-900 absolute inset-0">
-                      <Play className="h-6 w-6 text-white/20" />
+                    <div className="flex h-full w-full items-center justify-center bg-zinc-900 absolute inset-0 text-white/20">
+                      <Play className="h-6 w-6" />
                     </div>
                   )}
                   {isActive && (
@@ -159,4 +161,3 @@ export function EpisodeSelector({
     </div>
   );
 }
-

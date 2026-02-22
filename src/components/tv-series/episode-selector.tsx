@@ -33,7 +33,7 @@ export function EpisodeSelector({
               href={`/watch/tv/${tvId}?season=${season.season_number}&episode=1`}
               className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
                 currentSeason === season.season_number
-                  ? "bg-primary text-white"
+                  ? "bg-primary text-black"
                   : "bg-muted/50 text-muted-foreground hover:bg-muted"
               }`}
             >

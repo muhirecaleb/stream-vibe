@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { Loader2, Trophy, Maximize, Zap } from "lucide-react";
+import { Loader2, Trophy, Maximize } from "lucide-react";
 
 export function SportPlayer({ embedUrl }: { embedUrl?: string }) {
   const [isLoading, setIsLoading] = useState(true);

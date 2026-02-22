@@ -59,6 +59,33 @@ export type TVShow = {
   genre_ids: number[];
 };
 
+export type Season = {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  season_number: number;
+  episode_count: number;
+};
+
+export type Episode = {
+  id: number;
+  name: string;
+  overview: string;
+  still_path: string | null;
+  episode_number: number;
+  air_date: string;
+};
+
+export type SeasonDetails = {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  season_number: number;
+  episodes: Episode[];
+};
+
 export type TVDetails = TVShow & {
   genres: { id: number; name: string }[];
   number_of_seasons: number;
@@ -66,6 +93,7 @@ export type TVDetails = TVShow & {
   status: string;
   tagline: string;
   cast: CastMember[];
+  seasons: Season[];
 };
 
 export const tmdb = {
@@ -103,6 +131,9 @@ export const tmdb = {
     ]);
     return { ...details, cast: credits.cast.slice(0, 10) };
   },
+  getSeasonDetails: async (tvId: string, seasonNumber: number) => {
+    return fetchTMDB<SeasonDetails>(`/tv/${tvId}/season/${seasonNumber}`);
+  },
   getTVRecommendations: async (id: string | number) => {
     return fetchTMDB<{ results: TVShow[] }>(`/tv/${id}/recommendations`);
   },
@@ -110,3 +141,4 @@ export const tmdb = {
     return fetchTMDB<{ results: TVShow[] }>("/search/tv", { query });
   },
 };
+

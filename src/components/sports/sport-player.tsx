@@ -58,14 +58,15 @@ export function SportPlayer({ embedUrl }: { embedUrl?: string }) {
         frameBorder="0"
         scrolling="no"
         /* 
-           SANDBOXING:
-           Matches often use even more aggressive popups than movies.
-           We must exclude allow-popups.
+           NOTE: We removed the 'sandbox' attribute here because many sports stream providers 
+           (like streamed.pk) detect it and refuse to load the video. 
+           The 'isUnlocked' overlay still protects our users by capturing the very first 
+           click which is usually a hidden ad.
         */
-        sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts"
         allow="autoplay; encrypted-media; picture-in-picture"
         onLoad={() => setIsLoading(false)}
       />
+
     </div>
   );
 }

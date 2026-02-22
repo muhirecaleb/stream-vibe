@@ -14,7 +14,7 @@ export function SportPlayer({ embedUrl }: { embedUrl?: string }) {
           <Trophy className="h-16 w-16 text-muted-foreground mb-4 opacity-20" />
           <h2 className="text-xl font-bold text-white">No streams available</h2>
           <p className="text-muted-foreground mt-2 max-w-md">
-              We couldn't find any active streams for this specific source.
+              We couldnt find any active streams for this specific source.
           </p>
           <a href="/matches" className="mt-6 text-primary hover:underline font-medium">
               Back to Matches

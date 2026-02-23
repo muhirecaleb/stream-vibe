@@ -10,10 +10,12 @@ import {
   Search, 
   Heart,
   Trophy,
+  Sparkles,
 } from "lucide-react"
 
 const sidebarItems = [
   { icon: Home, label: "Home", href: "/dashboard" },
+  { icon: Sparkles, label: "Mood Engine", href: "/moods" },
   { icon: Search, label: "Search", href: "/search" },
   { icon: Heart, label: "Favorites", href: "/profile/favorites" },
   { icon: Trophy, label: "Live Sports", href: "/matches" },

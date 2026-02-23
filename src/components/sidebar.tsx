@@ -25,9 +25,12 @@ export function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname()
 
   return (
-    <div className={cn("hidden md:flex flex-col h-screen w-64 border-r fixed left-0 top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60", className)}>
+    <div 
+      className={cn("hidden md:flex flex-col h-screen w-64 border-r fixed left-0 top-0 z-50", className)}
+      style={{ backgroundColor: '#000000', opacity: 1 }}
+    >
       <div className="p-6">
-        <Link href="/dashboard" className="text-2xl font-bold tracking-tight text-primary flex items-center gap-2">
+        <Link href="/dashboard" className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
           <Image src="/logo.png" alt="StreamVibe Logo" width={32} height={32} className="h-8 w-8 object-contain" />
           StreamVibe
         </Link>
@@ -37,18 +40,25 @@ export function Sidebar({ className }: { className?: string }) {
           <Button
             key={item.href}
             variant={pathname === item.href ? "secondary" : "ghost"}
-            className={cn("w-full justify-start", pathname === item.href && "bg-secondary/50 font-bold")}
+            className={cn(
+              "w-full justify-start transition-all duration-200", 
+              pathname === item.href ? "bg-white text-black font-bold hover:bg-white/90" : "text-white/70 hover:text-white hover:bg-white/10"
+            )}
             asChild
           >
             <Link href={item.href}>
-              <item.icon className="mr-2 h-4 w-4" />
+              <item.icon className="mr-3 h-5 w-5" />
               {item.label}
             </Link>
           </Button>
         ))}
       </div>
-      <div className="p-4 border-t">
-       <h2>Niki niki</h2>
+      <div className="p-6 border-t border-white/10">
+        <div className="flex items-center gap-3">
+           <div className="flex-1 overflow-hidden">
+             <p className="text-sm font-medium text-white truncate">Niki niki</p>
+           </div>
+        </div>
       </div>
     </div>
   )

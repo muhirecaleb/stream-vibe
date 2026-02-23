@@ -10,21 +10,27 @@ export default function MainLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
-      {/* Sidebar - Hidden on mobile by default (controlled by CSS in Sidebar component) */}
+    <div className="flex min-h-screen bg-black text-white relative">
+      {/* Sidebar - Hidden on mobile by default */}
       <Sidebar />
+      
+      {/* Mobile Sidebar - Separated from header stacking context */}
+      <MobileNav />
 
       {/* Main Content Area */}
-      <div className="flex-1 md:ml-64 transition-[margin] duration-200 ease-in-out flex flex-col">
+      <div className="flex-1 md:ml-64 flex flex-col min-h-screen bg-black">
         <AdvisoryBanner />
-        {/* Top Header for Mobile or Global Actions */}
-        <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        
+        {/* Top Header */}
+        <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-white/10 bg-black px-6">
            <Link href="/dashboard" className="md:hidden font-bold flex items-center gap-2">
              <Image src="/logo.png" alt="Logo" width={24} height={24} className="h-6 w-6 object-contain" />
              StreamVibe
            </Link>
-
-           <MobileNav />
+           
+           {/* Only the trigger button will be seen here if we position it right, 
+               but for now let's just ensure the layout is clean. */}
+           <div className="md:hidden" /> 
         </header>
 
         <main className="container py-6">

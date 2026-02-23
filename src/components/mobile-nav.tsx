@@ -34,75 +34,82 @@ export function MobileNav() {
 
   return (
     <div className="md:hidden">
+      {/* Trigger Button - Fixed to Top Right to stay consistent */}
       <Button
         variant="ghost"
         size="icon"
         onClick={() => setIsOpen(true)}
-        className="relative"
+        className="fixed top-3 right-4 z-[45] bg-black border border-white/10 hover:bg-white/10"
         aria-label="Open menu"
       >
-        <Menu className="h-6 w-6" />
+        <Menu className="h-6 w-6 text-white" />
       </Button>
 
       {/* Backdrop */}
       {isOpen && (
         <div 
-          className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm transition-all duration-300"
+          className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md transition-all duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Menu Content */}
+      {/* Actual Sidebar Content */}
       <div 
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-[280px] bg-background border-r p-6 shadow-2xl transition-transform duration-300 ease-in-out transform",
+          "fixed inset-y-0 left-0 z-[110] w-[300px] p-6 shadow-2xl transition-transform duration-300 ease-in-out transform border-r border-white/10",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="flex items-center justify-between mb-8">
-          <Link href="/dashboard" className="flex items-center gap-2 font-bold text-xl text-primary">
-            <Image src="/logo.png" alt="Logo" width={28} height={28} className="h-7 w-7 object-contain" />
+        {/* FORCED SOLID BLACK LAYER */}
+        <div className="absolute inset-0 bg-black z-[-1]" style={{ opacity: 1 }} />
+        
+        <div className="flex items-center justify-between mb-10">
+          <Link href="/dashboard" className="flex items-center gap-2 font-black text-2xl text-white">
+            <Image src="/logo.png" alt="Logo" width={32} height={32} className="h-8 w-8 object-contain" />
             StreamVibe
           </Link>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(false)}
+            className="text-white hover:bg-white/10"
             aria-label="Close menu"
           >
             <X className="h-6 w-6" />
           </Button>
         </div>
 
-        <nav className="space-y-2">
+        <nav className="space-y-6">
           {menuItems.map((item) => (
             <Button
               key={item.href}
               variant={pathname === item.href ? "secondary" : "ghost"}
               className={cn(
-                "w-full justify-start text-lg h-12",
-                pathname === item.href && "bg-secondary text-primary font-semibold"
+                "w-full justify-start text-xl h-14 transition-all rounded-xl",
+                pathname === item.href 
+                  ? "bg-white text-black font-black shadow-xl" 
+                  : "text-white/60 hover:text-white hover:bg-white/10"
               )}
               asChild
             >
               <Link href={item.href} onClick={() => setIsOpen(false)}>
-                <item.icon className="mr-3 h-5 w-5" />
+                <item.icon className="mr-5 h-6 w-6" />
                 {item.label}
               </Link>
             </Button>
           ))}
         </nav>
 
-        <div className="absolute bottom-8 left-6 right-6 pt-6 border-t">
-          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider mb-4">Account</p>
-          <Button variant="outline" className="w-full justify-start gap-2" asChild>
-             <Link href="/profile">
-                <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">
-                  UN
-                </div>
-                My Profile
-             </Link>
-          </Button>
+        <div className="absolute bottom-10 left-6 right-6">
+           <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3">
+              <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-white">
+                SV
+              </div>
+              <div>
+                <p className="text-sm font-bold text-white uppercase tracking-tighter">Guest Mode</p>
+                <p className="text-[10px] text-white/40 uppercase font-medium">Free Tier</p>
+              </div>
+           </div>
         </div>
       </div>
     </div>

@@ -99,18 +99,6 @@ export function MobileNav() {
             </Button>
           ))}
         </nav>
-
-        <div className="absolute bottom-10 left-6 right-6">
-           <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-white">
-                SV
-              </div>
-              <div>
-                <p className="text-sm font-bold text-white uppercase tracking-tighter">Guest Mode</p>
-                <p className="text-[10px] text-white/40 uppercase font-medium">Free Tier</p>
-              </div>
-           </div>
-        </div>
       </div>
     </div>
   )

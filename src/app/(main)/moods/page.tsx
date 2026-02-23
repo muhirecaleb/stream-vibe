@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Movie } from "@/services/tmdb";
 import { MovieGrid } from "@/components/dashboard/movie-grid";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Loader2 } from "lucide-react";
+import {  Loader2 } from "lucide-react";
 import { getMoviesByVibeAction } from "@/app/actions/ai-actions";
 
 
@@ -68,7 +68,6 @@ export default function MoodPage() {
               ) : (
                 <div className="flex items-center gap-2">
                   <span>Match Vibe</span>
-                  <Sparkles className="h-4 w-4" />
                 </div>
               )}
             </Button>

@@ -3,6 +3,7 @@ import { tmdb } from "@/services/tmdb";
 import { VideoPlayer } from "@/components/video-player";
 import { MovieGrid } from "@/components/dashboard/movie-grid";
 import { EpisodeSelector } from "@/components/tv-series/episode-selector";
+import { DownloadTrigger } from "@/components/download-trigger";
 import { Calendar, Star, Info, ListVideo } from "lucide-react";
 
 interface PageProps {
@@ -28,26 +29,40 @@ export default async function WatchTVPage({ params, searchParams }: PageProps) {
   }
 
   const currentEpisodeData = seasonDetails?.episodes.find(ep => ep.episode_number === episodeNum);
+  const releaseYear = tvShow.first_air_date ? tvShow.first_air_date.split('-')[0] : "";
 
   return (
     <div className="space-y-10 pb-20">
        {/* Hero/Player Section */}
        <div className="space-y-6">
-          <div className="flex flex-col gap-4">
-             <div className="flex flex-wrap items-center gap-3">
-                <span className="px-2 py-1 rounded bg-primary/20 text-[10px] font-bold text-primary uppercase tracking-wider">Now Playing</span>
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                   <Star className="h-3 w-3 text-yellow-500 fill-yellow-500" />
-                   {tvShow.vote_average.toFixed(1)}
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+             <div className="space-y-4">
+                <div className="flex flex-wrap items-center gap-3">
+                   <span className="px-2 py-1 rounded bg-primary/20 text-[10px] font-bold text-primary uppercase tracking-wider">Now Playing</span>
+                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Star className="h-3 w-3 text-yellow-500 fill-yellow-500" />
+                      {tvShow.vote_average.toFixed(1)}
+                   </div>
+                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Calendar className="h-3 w-3" />
+                      {releaseYear || "N/A"}
+                   </div>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                   <Calendar className="h-3 w-3" />
-                   {tvShow.first_air_date?.split('-')[0] || "N/A"}
-                </div>
+                <h1 className="text-3xl font-bold md:text-5xl text-white tracking-tight">
+                   {tvShow.name}
+                </h1>
              </div>
-             <h1 className="text-3xl font-bold md:text-4xl text-white tracking-tight">
-                {tvShow.name}
-             </h1>
+
+             <div className="shrink-0 pb-1">
+                <DownloadTrigger 
+                   title={tvShow.name}
+                   tmdbId={id}
+                   year={releaseYear}
+                   type="tv"
+                   season={seasonNum}
+                   episode={episodeNum}
+                />
+             </div>
           </div>
 
           <VideoPlayer tmdbId={id} season={seasonNum} episode={episodeNum} />
@@ -55,7 +70,7 @@ export default async function WatchTVPage({ params, searchParams }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
              <div className="lg:col-span-2 space-y-6">
                 <div className="space-y-4">
-                   <div className="flex items-center gap-2 text-primary font-bold">
+                   <div className="flex items-center gap-2 text-primary font-bold text-lg">
                       <Info className="h-5 w-5" />
                       Episode {episodeNum}: {currentEpisodeData?.name || `Episode ${episodeNum}`}
                    </div>

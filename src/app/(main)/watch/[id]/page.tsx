@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { tmdb } from "@/services/tmdb";
 import { VideoPlayer } from "@/components/video-player";
 import { MovieGrid } from "@/components/dashboard/movie-grid";
+import { DownloadTrigger } from "@/components/download-trigger";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -19,11 +20,26 @@ export default async function WatchPage({ params }: PageProps) {
     notFound();
   }
 
+  const releaseYear = movie.release_date ? movie.release_date.split('-')[0] : "";
+
   return (
     <div className="space-y-8 pb-10">
-       <div className="space-y-4">
-          <h1 className="text-2xl font-bold md:text-3xl">Now Watching: <span className="text-primary">{movie.title}</span></h1>
-          <p className="max-w-3xl text-sm text-muted-foreground line-clamp-2">{movie.overview}</p>
+       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-4">
+             <h1 className="text-2xl font-bold md:text-4xl text-white">
+                Now Watching: <span className="text-primary">{movie.title}</span>
+             </h1>
+             <p className="max-w-3xl text-sm text-muted-foreground line-clamp-2">{movie.overview}</p>
+          </div>
+          
+          <div className="shrink-0">
+             <DownloadTrigger 
+                title={movie.title}
+                tmdbId={id}
+                year={releaseYear}
+                type="movie"
+             />
+          </div>
        </div>
 
        {/* Player */}

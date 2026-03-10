@@ -1,0 +1,34 @@
+"use client"
+
+import * as React from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { Search } from "lucide-react"
+import { useDebouncedCallback } from "use-debounce"
+
+export function MatchSearch() {
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams)
+    if (term) {
+      params.set("q", term)
+    } else {
+      params.delete("q")
+    }
+    replace(`/matches?${params.toString()}`)
+  }, 300)
+
+  return (
+    <div className="relative w-full max-w-md">
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <input
+        type="search"
+        placeholder="Search for any match, team or sport..."
+        className="w-full rounded-full border border-white/10 bg-white/5 pl-10 pr-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+        onChange={(e) => handleSearch(e.target.value)}
+        defaultValue={searchParams.get("q")?.toString()}
+      />
+    </div>
+  )
+}

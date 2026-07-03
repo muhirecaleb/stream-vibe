@@ -140,40 +140,6 @@ export const tmdb = {
   searchTV: async (query: string) => {
     return fetchTMDB<{ results: TVShow[] }>("/search/tv", { query });
   },
-  getByMood: async (mood: string) => {
-    const params: Record<string, string> = {
-      sort_by: "popularity.desc",
-      "vote_count.gte": "100",
-    };
-
-    switch (mood) {
-      case "lost":
-        params.with_genres = "18,9648"; // Drama, Mystery
-        params.sort_by = "vote_average.desc";
-        break;
-      case "comforting":
-        params.with_genres = "35,10751"; // Comedy, Family
-        break;
-      case "motivated":
-        params.with_genres = "28,99"; // Action, Documentary
-        params.with_keywords = "207730,158718"; // inspiring, biography
-        break;
-      case "chaotic-funny":
-        params.with_genres = "35,14"; // Comedy, Fantasy
-        params.with_keywords = "9717"; // dark comedy
-        break;
-      case "thrilled":
-        params.with_genres = "53,27,80"; // Thriller, Horror, Crime
-        break;
-      case "romantic":
-        params.with_genres = "10749"; // Romance
-        break;
-      default:
-        params.with_genres = "18";
-    }
-
-    return fetchTMDB<{ results: Movie[] }>("/discover/movie", params);
-  },
   discoverMovies: async (params: Record<string, string>) => {
     return fetchTMDB<{ results: Movie[] }>("/discover/movie", params);
   },

@@ -10,12 +10,10 @@ import {
   Search, 
   Heart,
   Trophy,
-  Sparkles,
 } from "lucide-react"
 
 const sidebarItems = [
   { icon: Home, label: "Home", href: "/dashboard" },
-  { icon: Sparkles, label: "Mood Engine", href: "/moods" },
   { icon: Search, label: "Search", href: "/search" },
   { icon: Heart, label: "Favorites", href: "/profile/favorites" },
   { icon: Trophy, label: "Live Sports", href: "/matches" },
@@ -56,7 +54,7 @@ export function Sidebar({ className }: { className?: string }) {
       <div className="p-6 border-t border-white/10">
         <div className="flex items-center gap-3">
            <div className="flex-1 overflow-hidden">
-             <p className="text-sm font-medium text-white truncate">Niki niki</p>
+             <p className="text-sm font-medium text-white truncate">@</p>
            </div>
         </div>
       </div>

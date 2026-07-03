@@ -3,14 +3,13 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X, Home, Search, Heart, Trophy, Sparkles } from "lucide-react"
+import { Menu, X, Home, Search, Heart, Trophy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
 const menuItems = [
   { icon: Home, label: "Home", href: "/dashboard" },
-  { icon: Sparkles, label: "Mood Engine", href: "/moods" },
   { icon: Search, label: "Search", href: "/search" },
   { icon: Heart, label: "Favorites", href: "/profile/favorites" },
   { icon: Trophy, label: "Live Sports", href: "/matches" },

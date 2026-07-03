@@ -12,26 +12,24 @@ export function VideoPlayer({
   season?: number; 
   episode?: number; 
 }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
 
   const src = season && episode 
     ? `https://www.vidking.net/embed/tv/${tmdbId}/${season}/${episode}`
     : `https://www.vidking.net/embed/movie/${tmdbId}`;
 
+  const handlePlay = () => {
+    setIsUnlocked(true);
+    setIsLoading(true);
+  };
+
   return (
     <div className="group relative aspect-video w-full overflow-hidden rounded-xl bg-black shadow-2xl ring-1 ring-white/10">
-      {/* Loading State */}
-      {isLoading && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center bg-zinc-950">
-           <Loader2 className="h-12 w-12 animate-spin text-red-600" />
-        </div>
-      )}
-
-      {/* Ad-Blocker/Click-to-Unlock Overlay */}
-      {!isUnlocked && !isLoading && (
+      {!isUnlocked ? (
+        /* Click-to-Play Overlay — shown before iframe is mounted */
         <div 
-          onClick={() => setIsUnlocked(true)}
+          onClick={handlePlay}
           className="absolute inset-0 z-30 cursor-pointer flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm transition-all duration-300 hover:bg-black/20"
         >
           <div className="flex flex-col items-center gap-4 transform transition-transform group-hover:scale-110">
@@ -46,23 +44,23 @@ export function VideoPlayer({
             <span className="text-xs font-medium text-white/70">Secure Player Active & Ad-Guard Shielded</span>
           </div>
         </div>
+      ) : (
+        /* Player loaded — iframe mounts fresh when user clicks */
+        <>
+          {isLoading && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center bg-zinc-950">
+               <Loader2 className="h-12 w-12 animate-spin text-red-600" />
+            </div>
+          )}
+          <iframe 
+            src={src}
+            className="h-full w-full border-0"
+            allowFullScreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            onLoad={() => setIsLoading(false)}
+          />
+        </>
       )}
-
-      <iframe 
-        src={src}
-        className={`h-full w-full border-0 transition-opacity duration-700 ${isUnlocked ? 'opacity-100' : 'opacity-0'}`} 
-        allowFullScreen
-        /* 
-           SANDBOXING:
-           - allow-scripts: Required for player logic
-           - allow-same-origin: Required for player to access its own storage
-           - allow-forms: Required for search/controls in some players
-           - we EXCLUDE allow-popups to try and block new tab ads
-        */
-        sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        onLoad={() => setIsLoading(false)}
-      />
     </div>
   );
 }

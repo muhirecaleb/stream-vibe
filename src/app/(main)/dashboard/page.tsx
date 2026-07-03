@@ -1,7 +1,6 @@
 import { tmdb } from "@/services/tmdb";
 import { HeroSection } from "@/components/dashboard/hero-section";
 import { MovieGrid } from "@/components/dashboard/movie-grid";
-import { MoodBanner } from "@/components/dashboard/mood-banner";
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -22,7 +21,6 @@ export default async function DashboardPage() {
       <MovieGrid title="Trending Movies" movies={trending.results.slice(1)} />
       <MovieGrid title="Trending TV Shows" movies={trendingTV.results} type="tv" />
       
-      <MoodBanner />
       
       <MovieGrid title="Popular Movies" movies={popular.results} />
       <MovieGrid title="Popular TV Shows" movies={popularTV.results} type="tv" />

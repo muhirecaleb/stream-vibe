@@ -29,8 +29,8 @@ export function Sidebar({ className }: { className?: string }) {
     >
       <div className="p-6">
         <Link href="/dashboard" className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-          <Image src="/logo.png" alt="StreamVibe Logo" width={32} height={32} className="h-8 w-8 object-contain" />
-          StreamVibe
+          <Image src="/logo.png" alt="epicstream Logo" width={32} height={32} className="h-8 w-8 object-contain" />
+          Epicstream
         </Link>
       </div>
       <div className="flex-1 px-4 space-y-2 overflow-auto">

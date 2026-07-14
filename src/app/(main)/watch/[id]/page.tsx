@@ -43,7 +43,7 @@ export default async function WatchPage({ params }: PageProps) {
        </div>
 
        {/* Player */}
-       <VideoPlayer tmdbId={id} />
+       <VideoPlayer imdbId={movie.imdb_id || ''} />
 
        {/* Related content */}
        <div className="pt-8">

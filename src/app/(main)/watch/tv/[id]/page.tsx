@@ -18,10 +18,11 @@ export default async function WatchTVPage({ params, searchParams }: PageProps) {
   const seasonNum = parseInt(season);
   const episodeNum = parseInt(episode);
 
-  const [tvShow, seasonDetails, recommendations] = await Promise.all([
+  const [tvShow, seasonDetails, recommendations, externalIds] = await Promise.all([
      tmdb.getTVDetails(id).catch(() => null),
      tmdb.getSeasonDetails(id, seasonNum).catch(() => null),
-     tmdb.getTVRecommendations(id).catch(() => ({ results: [] }))
+     tmdb.getTVRecommendations(id).catch(() => ({ results: [] })),
+     tmdb.getTVExternalIds(id).catch(() => ({ imdb_id: null }))
   ]);
 
   if (!tvShow) {
@@ -65,7 +66,7 @@ export default async function WatchTVPage({ params, searchParams }: PageProps) {
              </div>
           </div>
 
-          <VideoPlayer tmdbId={id} season={seasonNum} episode={episodeNum} />
+          <VideoPlayer imdbId={externalIds?.imdb_id || id} season={seasonNum} episode={episodeNum} />
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
              <div className="lg:col-span-2 space-y-6">

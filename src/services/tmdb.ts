@@ -29,6 +29,7 @@ export type MovieDetails = Movie & {
   status: string;
   tagline: string;
   cast: CastMember[];
+  imdb_id: string | null;
 };
 
 async function fetchTMDB<T>(endpoint: string, params: Record<string, string> = {}): Promise<T> {
@@ -136,11 +137,13 @@ export const tmdb = {
   },
   getTVRecommendations: async (id: string | number) => {
     return fetchTMDB<{ results: TVShow[] }>(`/tv/${id}/recommendations`);
-  },
-  searchTV: async (query: string) => {
+  },    searchTV: async (query: string) => {
     return fetchTMDB<{ results: TVShow[] }>("/search/tv", { query });
   },
-  discoverMovies: async (params: Record<string, string>) => {
+    getTVExternalIds: async (id: string) => {
+      return fetchTMDB<{ imdb_id: string | null }>(`/tv/${id}/external_ids`);
+    },
+    discoverMovies: async (params: Record<string, string>) => {
     return fetchTMDB<{ results: Movie[] }>("/discover/movie", params);
   },
 };

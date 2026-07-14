@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Loader2, Play, ShieldCheck } from "lucide-react";
 
 export function VideoPlayer({ 
-  tmdbId, 
+  imdbId, 
   season, 
   episode 
 }: { 
-  tmdbId: string; 
+  imdbId: string; 
   season?: number; 
   episode?: number; 
 }) {
@@ -16,8 +16,8 @@ export function VideoPlayer({
   const [isUnlocked, setIsUnlocked] = useState(false);
 
   const src = season && episode 
-    ? `https://www.vidking.net/embed/tv/${tmdbId}/${season}/${episode}`
-    : `https://www.vidking.net/embed/movie/${tmdbId}`;
+    ? `https://vidsrcme.ru/embed/${imdbId}/${season}-${episode}`
+    : `https://vidsrcme.ru/embed/${imdbId}`;
 
   const handlePlay = () => {
     setIsUnlocked(true);

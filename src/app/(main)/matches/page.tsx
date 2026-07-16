@@ -11,6 +11,14 @@ interface PageProps {
 
 export const revalidate = 300; // 5 minutes
 
+const tabClass = (isActive: boolean) =>
+  cn(
+    "rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors",
+    isActive
+      ? "bg-primary text-primary-foreground shadow-sm"
+      : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
+  );
+
 export default async function MatchesPage({ searchParams }: PageProps) {
   const { sport = "live", q = "" } = await searchParams;
   
@@ -67,41 +75,28 @@ export default async function MatchesPage({ searchParams }: PageProps) {
       <div className="flex flex-col gap-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">Sports</h1>
-            <p className="text-muted-foreground mt-2">Watch your favorite live sports matches.</p>
+            <h1 className="text-3xl font-bold tracking-tight">Sports</h1>
+            <p className="mt-1.5 text-muted-foreground">
+              Watch your favorite live sports matches.
+            </p>
           </div>
           <MatchSearch />
         </div>
 
         {/* Category Tabs */}
         {!q && (
-          <div className="flex flex-wrap gap-2 pb-4 border-b border-white/5">
-            <Link
-              href="/matches?sport=live"
-              className={cn(
-                "px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-muted",
-                sport === "live" ? "bg-primary text-black" : "bg-muted/50 text-muted-foreground"
-              )}
-            >
+          <div className="flex flex-wrap gap-2 border-b border-border pb-4">
+            <Link href="/matches?sport=live" className={tabClass(sport === "live")}>
               Live Now
             </Link>
-            <Link
-              href="/matches?sport=popular"
-              className={cn(
-                "px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-muted",
-                sport === "popular" ? "bg-primary text-black" : "bg-muted/50 text-muted-foreground"
-              )}
-            >
+            <Link href="/matches?sport=popular" className={tabClass(sport === "popular")}>
               Popular
             </Link>
             {sports.map((s) => (
               <Link
                 key={s.id}
                 href={`/matches?sport=${s.id}`}
-                className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-muted whitespace-nowrap",
-                  sport === s.id ? "bg-primary text-black" : "bg-muted/50 text-muted-foreground"
-                )}
+                className={tabClass(sport === s.id)}
               >
                 {s.name}
               </Link>
@@ -113,16 +108,22 @@ export default async function MatchesPage({ searchParams }: PageProps) {
       <div className="space-y-12">
         {q ? (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold tracking-tight">Search Results for "{q}"</h2>
-              <p className="text-muted-foreground text-sm">{searchResults.length} matches found</p>
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
+                Results for &ldquo;{q}&rdquo;
+              </h2>
+              <p className="shrink-0 text-sm text-muted-foreground">
+                {searchResults.length} {searchResults.length === 1 ? "match" : "matches"}
+              </p>
             </div>
             {searchResults.length > 0 ? (
               <MatchGrid title="" matches={searchResults} />
             ) : (
-              <div className="p-12 border rounded-2xl bg-muted/10 text-center">
-                <h2 className="text-xl font-bold">No matches found for "{q}"</h2>
-                <p className="text-muted-foreground mt-2">Try searching for a different team or sport.</p>
+              <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-12 text-center">
+                <h2 className="text-lg font-semibold">No matches found for &ldquo;{q}&rdquo;</h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Try searching for a different team or sport.
+                </p>
               </div>
             )}
           </div>
@@ -133,9 +134,11 @@ export default async function MatchesPage({ searchParams }: PageProps) {
                 {liveMatches.length > 0 ? (
                   <MatchGrid title="Live Matches" matches={liveMatches} />
                 ) : (
-                  <div className="p-12 border rounded-2xl bg-muted/10 text-center">
-                    <h2 className="text-xl font-bold">No matches live right now</h2>
-                    <p className="text-muted-foreground mt-2">Check back later or explore other categories.</p>
+                  <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-12 text-center">
+                    <h2 className="text-lg font-semibold">No matches live right now</h2>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Check back later or explore other categories.
+                    </p>
                   </div>
                 )}
                 {popularToday.length > 0 && (
@@ -153,9 +156,11 @@ export default async function MatchesPage({ searchParams }: PageProps) {
                 {categoryMatches.length > 0 ? (
                   <MatchGrid title={`${currentSportName} Matches`} matches={categoryMatches} />
                 ) : (
-                  <div className="p-12 border rounded-2xl bg-muted/10 text-center">
-                    <h2 className="text-xl font-bold">No {currentSportName} matches found</h2>
-                    <p className="text-muted-foreground mt-2">Try a different category or check back soon.</p>
+                  <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-12 text-center">
+                    <h2 className="text-lg font-semibold">No {currentSportName} matches found</h2>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Try a different category or check back soon.
+                    </p>
                   </div>
                 )}
               </>

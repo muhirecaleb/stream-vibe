@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react";
 import { Download, X, ExternalLink, HardDrive, Zap, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -75,66 +74,72 @@ export function DownloadModal({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-      <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity" 
-        onClick={onClose} 
+      <div
+        className="absolute inset-0 bg-foreground/20 backdrop-blur-sm transition-opacity dark:bg-background/80"
+        onClick={onClose}
       />
       
-      <div className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl transition-all animate-in fade-in zoom-in duration-300">
-        <div className="flex items-center justify-between border-b border-white/5 bg-white/5 px-6 py-4">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="download-modal-title"
+        className="animate-in fade-in zoom-in relative w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-popover text-popover-foreground shadow-2xl duration-200"
+      >
+        <div className="flex items-center justify-between gap-4 border-b border-border bg-muted/40 px-6 py-4">
           <div className="flex items-center gap-3">
-             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/20 text-primary">
+             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Download className="h-5 w-5" />
              </div>
-             <div>
-                <h3 className="text-lg font-bold text-white">Download Options</h3>
-                <p className="text-xs text-muted-foreground">Select a gateway for {title}</p>
+             <div className="min-w-0">
+                <h3 id="download-modal-title" className="text-base font-semibold">Download Options</h3>
+                <p className="truncate text-xs text-muted-foreground">Select a gateway for {title}</p>
              </div>
           </div>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={onClose} 
-            className="rounded-full hover:bg-white/10"
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onClose}
+            className="shrink-0 rounded-full"
+            aria-label="Close"
           >
             <X className="h-5 w-5" />
           </Button>
         </div>
 
-        <div className="p-6 space-y-4">
-          <div className="flex items-start gap-3 rounded-2xl bg-amber-500/10 p-4 border border-amber-500/20">
-            <Info className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
-            <p className="text-xs text-amber-200/80 leading-relaxed">
+        <div className="space-y-4 p-6">
+          <div className="flex items-start gap-3 rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
+            <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-500" />
+            <p className="text-xs leading-relaxed text-amber-900 dark:text-amber-200/80">
               Downloads are fulfilled via external gateways. We recommend using an ad-blocker and a VPN for the best experience on external sites.
             </p>
           </div>
 
           <div className="grid gap-3">
             {gateways.map((gate) => (
-              <a 
+              <a
                 key={gate.name}
                 href={gate.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-white/5 bg-white/[0.02] p-4 transition-all hover:border-white/20 hover:bg-white/[0.05]"
+                className="group flex items-center gap-4 rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary/40 hover:bg-accent"
               >
-                <div className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-110", gate.bg)}>
-                  <gate.icon className={cn("h-6 w-6", gate.color)} />
+                <div className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-105", gate.bg)}>
+                  <gate.icon className={cn("h-5 w-5", gate.color)} />
                 </div>
-                <div className="flex-1 overflow-hidden">
-                  <h4 className="font-bold text-white group-hover:text-primary transition-colors">{gate.name}</h4>
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-semibold transition-colors group-hover:text-primary">{gate.name}</h4>
                   <p className="truncate text-xs text-muted-foreground">{gate.description}</p>
                 </div>
-                <ExternalLink className="h-4 w-4 text-white/20 group-hover:text-white/60" />
+                <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
               </a>
             ))}
           </div>
         </div>
 
-        <div className="border-t border-white/5 bg-white/5 px-6 py-4">
-          <Button 
-            variant="secondary" 
-            className="w-full rounded-xl"
+        <div className="border-t border-border bg-muted/40 px-6 py-4">
+          <Button
+            variant="outline"
+            className="w-full"
             onClick={onClose}
           >
             Cancel

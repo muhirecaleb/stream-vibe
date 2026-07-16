@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
+import { Heart } from "lucide-react";
 import { MovieGrid } from "@/components/dashboard/movie-grid";
+import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { type Movie, type TVShow } from "@/services/tmdb";
 
@@ -29,11 +32,11 @@ export default function FavoritesPage() {
 
   if (loading) {
     return (
-      <div className="space-y-8 animate-pulse">
-        <div className="h-10 w-64 bg-muted rounded-lg" />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div className="animate-pulse space-y-8">
+        <div className="h-9 w-64 rounded-lg bg-muted" />
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4 xl:grid-cols-5">
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="aspect-[2/3] bg-muted rounded-lg" />
+            <div key={i} className="aspect-2/3 rounded-xl bg-muted" />
           ))}
         </div>
       </div>
@@ -43,24 +46,26 @@ export default function FavoritesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-4xl font-bold tracking-tight">My Favorites</h1>
-        <p className="text-muted-foreground mt-2">Movies and TV shows you&apos;ve saved to your list.</p>
+        <h1 className="text-3xl font-bold tracking-tight">My Favorites</h1>
+        <p className="mt-1.5 text-muted-foreground">
+          Movies and TV shows you&apos;ve saved to your list.
+        </p>
       </div>
 
       {favorites.length > 0 ? (
-        <MovieGrid 
-          title="Saved for later" 
-          movies={favorites} 
-        />
+        <MovieGrid title="Saved for later" movies={favorites} />
       ) : (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="h-20 w-20 rounded-full bg-muted flex items-center justify-center mb-4">
-            <span className="text-4xl font-bold text-muted-foreground">?</span>
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-muted/30 py-20 text-center">
+          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+            <Heart className="h-6 w-6 text-primary" />
           </div>
-          <h2 className="text-2xl font-bold">Your list is empty</h2>
-          <p className="text-muted-foreground mt-2 max-w-sm">
-            Start adding movies and TV shows to your favorites by clicking the heart icon!
+          <h2 className="text-lg font-semibold">Your list is empty</h2>
+          <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+            Tap the heart icon on any title to save it here.
           </p>
+          <Button asChild className="mt-6">
+            <Link href="/dashboard">Browse titles</Link>
+          </Button>
         </div>
       )}
     </div>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react";
+import Link from "next/link";
 import { Loader2, Trophy, Maximize } from "lucide-react";
 
 export function SportPlayer({ embedUrl }: { embedUrl?: string }) {
@@ -8,37 +9,38 @@ export function SportPlayer({ embedUrl }: { embedUrl?: string }) {
 
   if (!embedUrl) {
     return (
-      <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black flex flex-col items-center justify-center text-center p-6 border border-white/10">
-          <Trophy className="h-16 w-16 text-muted-foreground mb-4 opacity-20" />
-          <h2 className="text-xl font-bold text-white">No streams available</h2>
-          <p className="text-muted-foreground mt-2 max-w-md text-sm">
+      <div className="relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-dashed border-border bg-muted/30 p-6 text-center">
+          <Trophy className="mb-4 h-12 w-12 text-muted-foreground opacity-40" />
+          <h2 className="text-lg font-semibold">No streams available</h2>
+          <p className="mt-2 max-w-md text-sm text-muted-foreground">
               We couldn&apos;t find any active streams for this specific source. Please try another stream or check back later.
           </p>
-          <a href="/matches" className="mt-6 text-primary hover:underline font-medium text-sm">
+          <Link href="/matches" className="mt-6 text-sm font-medium text-primary hover:underline">
               Back to Matches
-          </a>
+          </Link>
       </div>
     );
   }
 
   return (
-    <div className="group relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-2xl ring-1 ring-white/10">
+    /* The player surface stays dark in both themes — standard for video chrome. */
+    <div className="group relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-border">
       {/* Loading State */}
       {isLoading && (
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-zinc-950 gap-4">
-           <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-black">
+           <Loader2 className="h-10 w-10 animate-spin text-primary" />
            <div className="flex flex-col items-center gap-1">
              <p className="text-sm font-medium text-white/80">Connecting to stream...</p>
-             <p className="text-[10px] text-white/40 uppercase tracking-widest">Third-party source</p>
+             <p className="text-[10px] uppercase tracking-widest text-white/40">Third-party source</p>
            </div>
         </div>
       )}
 
       {/* Pro Hint Badge - Subtle and useful */}
-      <div className="absolute top-4 left-4 z-10 pointer-events-none opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/60 px-3 py-1.5 backdrop-blur-md shadow-xl">
+      <div className="pointer-events-none absolute left-4 top-4 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 shadow-lg backdrop-blur-md">
           <Maximize className="h-3 w-3 text-primary" />
-          <span className="text-[10px] font-bold text-white uppercase tracking-tight">Tip: Go Fullscreen for Best Experience</span>
+          <span className="text-[10px] font-bold uppercase tracking-tight text-white">Tip: Go Fullscreen for Best Experience</span>
         </div>
       </div>
 

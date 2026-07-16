@@ -21,11 +21,12 @@ export function MatchSearch() {
 
   return (
     <div className="relative w-full max-w-md">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <input
         type="search"
+        aria-label="Search matches"
         placeholder="Search for any match, team or sport..."
-        className="w-full rounded-full border border-white/10 bg-white/5 pl-10 pr-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+        className="h-10 w-full rounded-full border border-input bg-background py-2 pl-10 pr-4 text-sm shadow-sm transition-colors placeholder:text-muted-foreground hover:border-ring/40 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={searchParams.get("q")?.toString()}
       />

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, Home, Search, Heart, Trophy } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ModeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
@@ -31,73 +32,99 @@ export function MobileNav() {
     }
   }, [isOpen])
 
+  useEffect(() => {
+    if (!isOpen) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false)
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [isOpen])
+
   return (
     <div className="md:hidden">
-      {/* Trigger Button - Fixed to Top Right to stay consistent */}
       <Button
         variant="ghost"
         size="icon"
         onClick={() => setIsOpen(true)}
-        className="fixed top-3 right-4 z-[45] bg-black border border-white/10 hover:bg-white/10"
+        className="fixed right-4 top-3 z-45 border border-border bg-background/80 backdrop-blur-sm"
         aria-label="Open menu"
+        aria-expanded={isOpen}
       >
-        <Menu className="h-6 w-6 text-white" />
+        <Menu className="h-5 w-5" />
       </Button>
 
-      {/* Backdrop */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md transition-all duration-300"
+        <div
+          className="fixed inset-0 z-100 bg-foreground/20 backdrop-blur-sm transition-opacity duration-300 dark:bg-background/80"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Actual Sidebar Content */}
-      <div 
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation"
         className={cn(
-          "fixed inset-y-0 left-0 z-[110] w-[300px] p-6 shadow-2xl transition-transform duration-300 ease-in-out transform border-r border-white/10",
+          "fixed inset-y-0 left-0 z-110 flex w-75 transform flex-col border-r border-border bg-surface p-6 shadow-2xl transition-transform duration-300 ease-in-out",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        {/* FORCED SOLID BLACK LAYER */}
-        <div className="absolute inset-0 bg-black z-[-1]" style={{ opacity: 1 }} />
-        
-        <div className="flex items-center justify-between mb-10">
-          <Link href="/dashboard" className="flex items-center gap-2 font-black text-2xl text-white">
-            <Image src="/logo.png" alt="Logo" width={32} height={32} className="h-8 w-8 object-contain" />
-            StreamVibe
+        <div className="mb-8 flex items-center justify-between">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-foreground"
+            onClick={() => setIsOpen(false)}
+          >
+            <Image
+              src="/logo.png"
+              alt=""
+              width={32}
+              height={32}
+              className="h-8 w-8 object-contain"
+            />
+            Epicstream
           </Link>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(false)}
-            className="text-white hover:bg-white/10"
             aria-label="Close menu"
           >
-            <X className="h-6 w-6" />
+            <X className="h-5 w-5" />
           </Button>
         </div>
 
-        <nav className="space-y-6">
-          {menuItems.map((item) => (
-            <Button
-              key={item.href}
-              variant={pathname === item.href ? "secondary" : "ghost"}
-              className={cn(
-                "w-full justify-start text-xl h-14 transition-all rounded-xl",
-                pathname === item.href 
-                  ? "bg-white text-black font-black shadow-xl" 
-                  : "text-white/60 hover:text-white hover:bg-white/10"
-              )}
-              asChild
-            >
-              <Link href={item.href} onClick={() => setIsOpen(false)}>
-                <item.icon className="mr-5 h-6 w-6" />
+        <nav className="flex-1 space-y-1">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                aria-current={isActive ? "page" : undefined}
+                className={cn(
+                  "relative flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium transition-colors",
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                )}
+              >
+                {isActive && (
+                  <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-primary" />
+                )}
+                <item.icon className="h-5 w-5 shrink-0" />
                 {item.label}
               </Link>
-            </Button>
-          ))}
+            )
+          })}
         </nav>
+
+        <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
+          <span className="text-xs font-medium text-muted-foreground">Theme</span>
+          <ModeToggle />
+        </div>
       </div>
     </div>
   )

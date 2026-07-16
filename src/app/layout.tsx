@@ -7,7 +7,10 @@ import { cn } from "@/lib/utils";
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "Epicstream",
+  title: {
+    default: "Epicstream",
+    template: "%s · Epicstream",
+  },
   description: "Modern Streaming Application",
   icons: {
     icon: "/logo.png",
@@ -23,12 +26,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
-            disableTransitionOnChange
-          >
-            {children}
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
         </ThemeProvider>
       </body>
     </html>

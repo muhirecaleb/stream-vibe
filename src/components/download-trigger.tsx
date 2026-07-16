@@ -26,13 +26,13 @@ export function DownloadTrigger({
 
   return (
     <>
-      <Button 
+      <Button
         onClick={() => setIsModalOpen(true)}
-        className="flex items-center gap-2 rounded-full bg-primary/10 px-6 py-4 text-primary transition-all hover:bg-primary hover:text-white"
-        variant="ghost"
+        variant="outline"
+        className="rounded-full border-primary/30 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground"
       >
-        <Download className="h-5 w-5" />
-        <span className="font-bold">Download</span>
+        <Download className="h-4 w-4" />
+        Download
       </Button>
 
       <DownloadModal 

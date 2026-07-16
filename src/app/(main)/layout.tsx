@@ -10,32 +10,34 @@ export default function MainLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen bg-black text-white relative">
-      {/* Sidebar - Hidden on mobile by default */}
+    <div className="relative flex min-h-screen bg-background text-foreground">
       <Sidebar />
-      
-      {/* Mobile Sidebar - Separated from header stacking context */}
+
+      {/* Mobile drawer - kept outside the header's stacking context */}
       <MobileNav />
 
-      {/* Main Content Area */}
-      <div className="flex-1 md:ml-64 flex flex-col min-h-screen bg-black">
+      <div className="flex min-h-screen flex-1 flex-col md:ml-64">
         <AdvisoryBanner />
-        
-        {/* Top Header */}
-        <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-white/10 bg-black px-6">
-           <Link href="/dashboard" className="md:hidden font-bold flex items-center gap-2">
-             <Image src="/logo.png" alt="Logo" width={24} height={24} className="h-6 w-6 object-contain" />
-             StreamVibe
-           </Link>
-           
-           {/* Only the trigger button will be seen here if we position it right, 
-               but for now let's just ensure the layout is clean. */}
-           <div className="md:hidden" /> 
+
+        {/* The desktop brand and theme controls live in the sidebar, so this
+            header only carries the mobile chrome. */}
+        <header className="sticky top-0 z-40 flex h-16 items-center border-b border-border bg-background/80 px-5 backdrop-blur-md md:hidden">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2.5 font-bold tracking-tight"
+          >
+            <Image
+              src="/logo.png"
+              alt=""
+              width={24}
+              height={24}
+              className="h-6 w-6 object-contain"
+            />
+            Epicstream
+          </Link>
         </header>
 
-        <main className="container py-6">
-          {children}
-        </main>
+        <main className="container flex-1 py-8">{children}</main>
       </div>
     </div>
   )

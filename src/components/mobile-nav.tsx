@@ -19,7 +19,6 @@ export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
-  // Prevent scrolling when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden"
@@ -33,66 +32,59 @@ export function MobileNav() {
 
   return (
     <div className="md:hidden">
-      {/* Trigger Button - Fixed to Top Right to stay consistent */}
       <Button
         variant="ghost"
         size="icon"
         onClick={() => setIsOpen(true)}
-        className="fixed top-3 right-4 z-[45] bg-black border border-white/10 hover:bg-white/10"
+        className="fixed top-3 right-3 z-45 bg-background border"
         aria-label="Open menu"
       >
-        <Menu className="h-6 w-6 text-white" />
+        <Menu className="h-5 w-5" />
       </Button>
 
-      {/* Backdrop */}
       {isOpen && (
         <div 
-          className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md transition-all duration-300"
+          className="fixed inset-0 z-40 bg-black/60"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Actual Sidebar Content */}
       <div 
         className={cn(
-          "fixed inset-y-0 left-0 z-[110] w-[300px] p-6 shadow-2xl transition-transform duration-300 ease-in-out transform border-r border-white/10",
+          "fixed inset-y-0 left-0 z-50 w-72 bg-background p-6 transition-transform duration-200",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        {/* FORCED SOLID BLACK LAYER */}
-        <div className="absolute inset-0 bg-black z-[-1]" style={{ opacity: 1 }} />
-        
-        <div className="flex items-center justify-between mb-10">
-          <Link href="/dashboard" className="flex items-center gap-2 font-black text-2xl text-white">
-            <Image src="/logo.png" alt="Logo" width={32} height={32} className="h-8 w-8 object-contain" />
-            StreamVibe
+        <div className="flex items-center justify-between mb-8">
+          <Link href="/dashboard" className="flex items-center gap-2 font-semibold text-lg">
+            <Image src="/logo.png" alt="Logo" width={24} height={24} className="h-6 w-6 object-contain" />
+            Epicstream
           </Link>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(false)}
-            className="text-white hover:bg-white/10"
             aria-label="Close menu"
           >
-            <X className="h-6 w-6" />
+            <X className="h-5 w-5" />
           </Button>
         </div>
 
-        <nav className="space-y-6">
+        <nav className="space-y-1">
           {menuItems.map((item) => (
             <Button
               key={item.href}
-              variant={pathname === item.href ? "secondary" : "ghost"}
+              variant="ghost"
               className={cn(
-                "w-full justify-start text-xl h-14 transition-all rounded-xl",
+                "w-full justify-start",
                 pathname === item.href 
-                  ? "bg-white text-black font-black shadow-xl" 
-                  : "text-white/60 hover:text-white hover:bg-white/10"
+                  ? "bg-accent text-foreground font-medium" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
               )}
               asChild
             >
               <Link href={item.href} onClick={() => setIsOpen(false)}>
-                <item.icon className="mr-5 h-6 w-6" />
+                <item.icon className="mr-3 h-4 w-4" />
                 {item.label}
               </Link>
             </Button>

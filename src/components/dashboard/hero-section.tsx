@@ -11,38 +11,33 @@ export function HeroSection({ movie }: HeroSectionProps) {
   if (!movie) return null;
 
   return (
-    <section className="relative w-full overflow-hidden rounded-2xl bg-background shadow-2xl ring-1 ring-white/10">
-      {/* Background Image with Gradient Overlay */}
+    <section className="relative w-full overflow-hidden rounded-xl bg-card">
       <div 
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105"
+        className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}
       >
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/40" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 flex flex-col justify-center px-8 py-16 md:px-12 lg:w-2/3 lg:px-16 xl:py-24">
-        <span className="mb-4 inline-block w-fit rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary backdrop-blur-md">
-          Featured Movie
-        </span>
-        <h1 className="mb-4 text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
+        <h1 className="mb-4 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
           {movie.title}
         </h1>
-        <p className="mb-8 line-clamp-3 text-lg text-muted-foreground md:text-xl">
+        <p className="mb-8 line-clamp-2 text-sm text-muted-foreground md:text-base max-w-2xl">
           {movie.overview}
         </p>
         
-        <div className="flex flex-wrap gap-4">
-          <Button asChild size="lg" className="gap-2 bg-primary hover:bg-primary/90">
+        <div className="flex flex-wrap gap-3">
+          <Button asChild size="default">
             <Link href={`/watch/${movie.id}`}>
-              <Play className="h-5 w-5 fill-current" />
-              Watch Now
+              <Play className="h-4 w-4 fill-current" />
+              Watch
             </Link>
           </Button>
-          <Button asChild variant="outline" size="lg" className="gap-2 border-white/20 bg-white/5 text-white hover:bg-white/10">
+          <Button asChild variant="outline" size="default">
             <Link href={`/watch/${movie.id}`}>
-              <Info className="h-5 w-5" />
-              More Info
+              <Info className="h-4 w-4" />
+              Details
             </Link>
           </Button>
         </div>

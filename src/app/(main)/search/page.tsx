@@ -13,29 +13,28 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const results = query ? await tmdb.searchMovies(query) : { results: [] };
 
   return (
-    <div className="space-y-8 pb-10">
+    <div className="space-y-8 pb-8">
       <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">Search</h1>
+        <h1 className="text-2xl font-semibold">Search</h1>
         <SearchInput />
       </div>
 
       {query ? (
-        <div className="space-y-6">
-          <p className="text-muted-foreground">
-            Found {results.results.length} results for "{query}"
+        <div className="space-y-4">
+          <p className="text-sm text-muted-foreground">
+            {results.results.length} results for "{query}"
           </p>
           {results.results.length > 0 ? (
             <MovieGrid title="" movies={results.results} />
           ) : (
-            <div className="flex h-40 items-center justify-center rounded-lg border border-dashed text-muted-foreground">
+            <div className="flex h-32 items-center justify-center rounded-lg border border-dashed text-sm text-muted-foreground">
               No movies found.
             </div>
           )}
         </div>
       ) : (
-        <div className="flex h-64 flex-col items-center justify-center rounded-lg border border-dashed text-muted-foreground bg-muted/20">
-          <p className="text-lg font-medium">Start typing to search for movies</p>
-          <p className="text-sm">Find your favorite titles instantly</p>
+        <div className="flex h-48 flex-col items-center justify-center rounded-lg border border-dashed text-muted-foreground">
+          <p className="text-sm">Start typing to search for movies</p>
         </div>
       )}
     </div>

@@ -11,10 +11,9 @@ import { Button } from "@/components/ui/button";
 interface MovieCardProps {
   movie: Movie | TVShow;
   type?: "movie" | "tv";
-  className?: string;
 }
 
-export function MovieCard({ movie, type = "movie", className }: MovieCardProps) {
+export function MovieCard({ movie, type = "movie" }: MovieCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const title = (movie as Movie).title || (movie as TVShow).name;
   const date = (movie as Movie).release_date || (movie as TVShow).first_air_date;
@@ -46,49 +45,46 @@ export function MovieCard({ movie, type = "movie", className }: MovieCardProps) 
   };
 
   return (
-    <div className="group relative block aspect-[2/3] overflow-hidden rounded-lg bg-muted transition-all hover:scale-105 hover:shadow-xl hover:ring-2 hover:ring-primary/50">
+    <div className="group relative block aspect-[2/3] overflow-hidden rounded-lg bg-card">
       <Link href={link} className="absolute inset-0">
         {movie.poster_path ? (
           <Image
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={title}
             fill
-            className="object-cover transition-transform group-hover:scale-110"
+            className="object-cover"
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
           />
         ) : (
-          <div className="flex h-full items-center justify-center bg-muted text-muted-foreground">
-            No Image
+          <div className="flex h-full items-center justify-center bg-muted text-muted-foreground text-sm">
+            No poster
           </div>
         )}
         
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
-        {/* Content */}
-        <div className="absolute bottom-0 left-0 p-4 text-white">
-          <h3 className="line-clamp-1 text-lg font-bold">{title}</h3>
-          <div className="flex items-center gap-2 text-xs text-gray-300">
+        <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
+          <h3 className="line-clamp-1 text-sm font-medium">{title}</h3>
+          <div className="flex items-center gap-2 text-xs text-gray-400 mt-0.5">
              <span>{date ? new Date(date).getFullYear() : "N/A"}</span>
-             <span className="flex items-center gap-1 text-yellow-500">
-               <Star className="h-3 w-3 fill-current" />
+             <span className="flex items-center gap-1">
+               <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
                {movie.vote_average.toFixed(1)}
              </span>
           </div>
         </div>
       </Link>
 
-      {/* Favorite Button */}
       <Button
         variant="ghost"
         size="icon"
         className={cn(
-          "absolute right-2 top-2 z-10 rounded-full bg-black/20 backdrop-blur-sm transition-all hover:bg-black/40",
-          isFavorite ? "text-red-500 hover:text-red-600" : "text-white hover:text-red-400"
+          "absolute right-2 top-2 z-10 rounded-full bg-black/40 hover:bg-black/60",
+          isFavorite ? "text-red-500" : "text-white/70 hover:text-red-400"
         )}
         onClick={toggleFavorite}
       >
-        <Heart className={cn("h-5 w-5", isFavorite && "fill-current")} />
+        <Heart className={cn("h-4 w-4", isFavorite && "fill-current")} />
       </Button>
     </div>
   );

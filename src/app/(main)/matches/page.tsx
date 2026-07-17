@@ -63,24 +63,23 @@ export default async function MatchesPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="space-y-8 pb-10">
+    <div className="space-y-8 pb-8">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">Sports</h1>
-            <p className="text-muted-foreground mt-2">Watch your favorite live sports matches.</p>
+            <h1 className="text-2xl font-semibold">Sports</h1>
+            <p className="text-sm text-muted-foreground mt-1">Live and upcoming matches.</p>
           </div>
           <MatchSearch />
         </div>
 
-        {/* Category Tabs */}
         {!q && (
-          <div className="flex flex-wrap gap-2 pb-4 border-b border-white/5">
+          <div className="flex flex-wrap gap-2 pb-2 border-b">
             <Link
               href="/matches?sport=live"
               className={cn(
-                "px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-muted",
-                sport === "live" ? "bg-primary text-black" : "bg-muted/50 text-muted-foreground"
+                "px-3 py-1.5 rounded-md text-sm transition-colors",
+                sport === "live" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
               )}
             >
               Live Now
@@ -88,8 +87,8 @@ export default async function MatchesPage({ searchParams }: PageProps) {
             <Link
               href="/matches?sport=popular"
               className={cn(
-                "px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-muted",
-                sport === "popular" ? "bg-primary text-black" : "bg-muted/50 text-muted-foreground"
+                "px-3 py-1.5 rounded-md text-sm transition-colors",
+                sport === "popular" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
               )}
             >
               Popular
@@ -99,8 +98,8 @@ export default async function MatchesPage({ searchParams }: PageProps) {
                 key={s.id}
                 href={`/matches?sport=${s.id}`}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-muted whitespace-nowrap",
-                  sport === s.id ? "bg-primary text-black" : "bg-muted/50 text-muted-foreground"
+                  "px-3 py-1.5 rounded-md text-sm transition-colors whitespace-nowrap",
+                  sport === s.id ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {s.name}
@@ -110,19 +109,18 @@ export default async function MatchesPage({ searchParams }: PageProps) {
         )}
       </div>
 
-      <div className="space-y-12">
+      <div className="space-y-10">
         {q ? (
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold tracking-tight">Search Results for "{q}"</h2>
-              <p className="text-muted-foreground text-sm">{searchResults.length} matches found</p>
+              <h2 className="text-base font-semibold">Search Results for "{q}"</h2>
+              <p className="text-sm text-muted-foreground">{searchResults.length} matches found</p>
             </div>
             {searchResults.length > 0 ? (
               <MatchGrid title="" matches={searchResults} />
             ) : (
-              <div className="p-12 border rounded-2xl bg-muted/10 text-center">
-                <h2 className="text-xl font-bold">No matches found for "{q}"</h2>
-                <p className="text-muted-foreground mt-2">Try searching for a different team or sport.</p>
+              <div className="py-10 border rounded-lg text-center">
+                <p className="text-sm text-muted-foreground">No matches found for "{q}". Try a different search.</p>
               </div>
             )}
           </div>
@@ -131,11 +129,10 @@ export default async function MatchesPage({ searchParams }: PageProps) {
             {sport === "live" && (
               <>
                 {liveMatches.length > 0 ? (
-                  <MatchGrid title="Live Matches" matches={liveMatches} />
+                  <MatchGrid title="Live" matches={liveMatches} />
                 ) : (
-                  <div className="p-12 border rounded-2xl bg-muted/10 text-center">
-                    <h2 className="text-xl font-bold">No matches live right now</h2>
-                    <p className="text-muted-foreground mt-2">Check back later or explore other categories.</p>
+                  <div className="py-10 border rounded-lg text-center">
+                    <p className="text-sm text-muted-foreground">No matches live right now. Check back later.</p>
                   </div>
                 )}
                 {popularToday.length > 0 && (
@@ -145,17 +142,16 @@ export default async function MatchesPage({ searchParams }: PageProps) {
             )}
 
             {sport === "popular" && (
-              <MatchGrid title="Most Popular Today" matches={popularToday} />
+              <MatchGrid title="Popular Today" matches={popularToday} />
             )}
 
             {sport !== "live" && sport !== "popular" && (
               <>
                 {categoryMatches.length > 0 ? (
-                  <MatchGrid title={`${currentSportName} Matches`} matches={categoryMatches} />
+                  <MatchGrid title={`${currentSportName}`} matches={categoryMatches} />
                 ) : (
-                  <div className="p-12 border rounded-2xl bg-muted/10 text-center">
-                    <h2 className="text-xl font-bold">No {currentSportName} matches found</h2>
-                    <p className="text-muted-foreground mt-2">Try a different category or check back soon.</p>
+                  <div className="py-10 border rounded-lg text-center">
+                    <p className="text-sm text-muted-foreground">No {currentSportName.toLowerCase()} matches found.</p>
                   </div>
                 )}
               </>

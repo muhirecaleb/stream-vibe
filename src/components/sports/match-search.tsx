@@ -20,12 +20,12 @@ export function MatchSearch() {
   }, 300)
 
   return (
-    <div className="relative w-full max-w-md">
+    <div className="relative w-full md:w-auto">
       <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
       <input
         type="search"
-        placeholder="Search for any match, team or sport..."
-        className="w-full rounded-full border border-white/10 bg-white/5 pl-10 pr-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+        placeholder="Search matches, teams or sports..."
+        className="w-full rounded-md border bg-background pl-9 pr-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring md:w-[260px]"
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={searchParams.get("q")?.toString()}
       />

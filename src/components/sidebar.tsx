@@ -24,40 +24,32 @@ export function Sidebar({ className }: { className?: string }) {
 
   return (
     <div 
-      className={cn("hidden md:flex flex-col h-screen w-64 border-r fixed left-0 top-0 z-50", className)}
-      style={{ backgroundColor: '#000000', opacity: 1 }}
+      className={cn("hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-50 bg-background border-r", className)}
     >
       <div className="p-6">
-        <Link href="/dashboard" className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-          <Image src="/logo.png" alt="epicstream Logo" width={32} height={32} className="h-8 w-8 object-contain" />
+        <Link href="/dashboard" className="text-xl font-semibold text-white flex items-center gap-2">
+          <Image src="/logo.png" alt="epicstream Logo" width={28} height={28} className="h-7 w-7 object-contain" />
           Epicstream
         </Link>
       </div>
-      <div className="flex-1 px-4 space-y-2 overflow-auto">
+      <nav className="flex-1 px-3 space-y-1 overflow-auto">
         {sidebarItems.map((item) => (
           <Button
             key={item.href}
-            variant={pathname === item.href ? "secondary" : "ghost"}
+            variant="ghost"
             className={cn(
-              "w-full justify-start transition-all duration-200", 
-              pathname === item.href ? "bg-white text-black font-bold hover:bg-white/90" : "text-white/70 hover:text-white hover:bg-white/10"
+              "w-full justify-start", 
+              pathname === item.href ? "bg-accent text-foreground font-medium" : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
             )}
             asChild
           >
             <Link href={item.href}>
-              <item.icon className="mr-3 h-5 w-5" />
+              <item.icon className="mr-3 h-4 w-4" />
               {item.label}
             </Link>
           </Button>
         ))}
-      </div>
-      <div className="p-6 border-t border-white/10">
-        <div className="flex items-center gap-3">
-           <div className="flex-1 overflow-hidden">
-             <p className="text-sm font-medium text-white truncate">@</p>
-           </div>
-        </div>
-      </div>
+      </nav>
     </div>
   )
 }

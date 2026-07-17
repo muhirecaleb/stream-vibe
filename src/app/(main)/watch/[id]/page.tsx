@@ -23,13 +23,11 @@ export default async function WatchPage({ params }: PageProps) {
   const releaseYear = movie.release_date ? movie.release_date.split('-')[0] : "";
 
   return (
-    <div className="space-y-8 pb-10">
-       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="space-y-4">
-             <h1 className="text-2xl font-bold md:text-4xl text-white">
-                Now Watching: <span className="text-primary">{movie.title}</span>
-             </h1>
-             <p className="max-w-3xl text-sm text-muted-foreground line-clamp-2">{movie.overview}</p>
+    <div className="space-y-6 pb-8">
+       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div className="space-y-2">
+             <h1 className="text-xl font-semibold">{movie.title}</h1>
+             <p className="max-w-2xl text-sm text-muted-foreground line-clamp-2">{movie.overview}</p>
           </div>
           
           <div className="shrink-0">
@@ -42,12 +40,10 @@ export default async function WatchPage({ params }: PageProps) {
           </div>
        </div>
 
-       {/* Player */}
        <VideoPlayer imdbId={movie.imdb_id || ''} />
 
-       {/* Related content */}
-       <div className="pt-8">
-          <MovieGrid title="Related Movies" movies={recommendations.results.slice(0, 10)} />
+       <div className="pt-6">
+          <MovieGrid title="Related" movies={recommendations.results.slice(0, 10)} />
        </div>
     </div>
   );

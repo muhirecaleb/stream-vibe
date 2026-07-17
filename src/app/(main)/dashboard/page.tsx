@@ -15,13 +15,11 @@ export default async function DashboardPage() {
   const featuredMovie = trending.results[0];
 
   return (
-    <div className="space-y-12 pb-10">
+    <div className="space-y-10 pb-8">
       <HeroSection movie={featuredMovie} />
       
       <MovieGrid title="Trending Movies" movies={trending.results.slice(1)} />
       <MovieGrid title="Trending TV Shows" movies={trendingTV.results} type="tv" />
-      
-      
       <MovieGrid title="Popular Movies" movies={popular.results} />
       <MovieGrid title="Popular TV Shows" movies={popularTV.results} type="tv" />
     </div>

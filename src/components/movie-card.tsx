@@ -20,34 +20,28 @@ export function MovieCard({ movie, type = "movie", className }: MovieCardProps) 
   const link = type === "movie" ? `/watch/${movie.id}` : `/watch/tv/${movie.id}`;
 
   useEffect(() => {
-    const favorites: { id: number }[] = JSON.parse(
-      localStorage.getItem("favorites") || "[]"
-    );
+    const favorites: { id: number }[] = JSON.parse(localStorage.getItem("favorites") || "[]");
     setIsFavorite(favorites.some((fav) => fav.id === movie.id));
   }, [movie.id]);
 
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-
-    const favorites: { id: number }[] = JSON.parse(
-      localStorage.getItem("favorites") || "[]"
-    );
+    const favorites: { id: number }[] = JSON.parse(localStorage.getItem("favorites") || "[]");
     const newFavorites = isFavorite
       ? favorites.filter((fav) => fav.id !== movie.id)
       : [...favorites, { ...movie, type }];
-
     localStorage.setItem("favorites", JSON.stringify(newFavorites));
     setIsFavorite(!isFavorite);
-
-    // Dispatch custom event to notify Favorites page
     window.dispatchEvent(new Event("favorites-updated"));
   };
 
   return (
     <div
       className={cn(
-        "group relative aspect-2/3 overflow-hidden rounded-xl bg-muted ring-1 ring-border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-primary/50",
+        "group relative aspect-2/3 overflow-hidden rounded-2xl bg-muted ring-1 ring-border/60",
+        "transition-all duration-300 hover:-translate-y-2 hover:ring-primary/60",
+        "hover:shadow-2xl hover:shadow-primary/20",
         className
       )}
     >
@@ -57,7 +51,7 @@ export function MovieCard({ movie, type = "movie", className }: MovieCardProps) 
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-108"
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
           />
         ) : (
@@ -66,38 +60,41 @@ export function MovieCard({ movie, type = "movie", className }: MovieCardProps) 
           </div>
         )}
 
-        {/* Scrim keeps the title legible on light posters, not just on hover. */}
-        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
+        {/* Bottom scrim */}
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/95 via-black/60 to-transparent" />
 
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/90 shadow-lg backdrop-blur-sm">
-            <Play className="ml-0.5 h-5 w-5 fill-white text-white" />
+        {/* Hover overlay */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary shadow-xl shadow-primary/50 ring-4 ring-white/20 transition-transform duration-200 group-hover:scale-110">
+            <Play className="ml-0.5 h-6 w-6 fill-white text-white" />
           </span>
         </div>
 
+        {/* Rating pill — top-left */}
+        <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 backdrop-blur-sm">
+          <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+          <span className="text-[11px] font-semibold text-white">{movie.vote_average.toFixed(1)}</span>
+        </div>
+
+        {/* Title + year */}
         <div className="absolute inset-x-0 bottom-0 p-3">
-          <h3 className="line-clamp-1 text-sm font-semibold text-white drop-shadow-sm">
-            {title}
-          </h3>
-          <div className="mt-1 flex items-center gap-2 text-xs text-white/70">
-            <span>{date ? new Date(date).getFullYear() : "N/A"}</span>
-            <span className="flex items-center gap-1">
-              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-              {movie.vote_average.toFixed(1)}
-            </span>
-          </div>
+          <h3 className="line-clamp-1 text-sm font-bold text-white drop-shadow">{title}</h3>
+          <p className="mt-0.5 text-xs text-white/60">{date ? new Date(date).getFullYear() : "N/A"}</p>
         </div>
       </Link>
 
+      {/* Favorite button */}
       <button
         type="button"
         onClick={toggleFavorite}
         aria-label={isFavorite ? `Remove ${title} from favorites` : `Add ${title} to favorites`}
         aria-pressed={isFavorite}
         className={cn(
-          "absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm transition-all hover:bg-black/60",
+          "absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-sm transition-all duration-200",
           "focus-visible:opacity-100 group-hover:opacity-100",
-          isFavorite ? "text-red-500 opacity-100" : "text-white opacity-0 hover:text-red-400"
+          isFavorite
+            ? "bg-red-500/90 text-white opacity-100 shadow-lg shadow-red-500/40"
+            : "bg-black/50 text-white/80 opacity-0 hover:bg-red-500/80 hover:text-white"
         )}
       >
         <Heart className={cn("h-4 w-4", isFavorite && "fill-current")} />

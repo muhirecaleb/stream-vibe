@@ -11,28 +11,26 @@ export default function MainLayout({
 }) {
   return (
     <div className="relative flex min-h-screen bg-background text-foreground">
-      <Sidebar />
+      {/* Ambient background glow */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-primary/8 blur-3xl" />
+        <div className="absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-primary/6 blur-3xl" />
+      </div>
 
-      {/* Mobile drawer - kept outside the header's stacking context */}
+      <Sidebar />
       <MobileNav />
 
       <div className="flex min-h-screen flex-1 flex-col md:ml-64">
         <AdvisoryBanner />
 
-        {/* The desktop brand and theme controls live in the sidebar, so this
-            header only carries the mobile chrome. */}
         <header className="sticky top-0 z-40 flex h-16 items-center border-b border-border bg-background/80 px-5 backdrop-blur-md md:hidden">
           <Link
             href="/dashboard"
             className="flex items-center gap-2.5 font-bold tracking-tight"
           >
-            <Image
-              src="/logo.png"
-              alt=""
-              width={24}
-              height={24}
-              className="h-6 w-6 object-contain"
-            />
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary shadow-md shadow-primary/40">
+              <Image src="/logo.png" alt="" width={18} height={18} className="object-contain" />
+            </div>
             Epicstream
           </Link>
         </header>

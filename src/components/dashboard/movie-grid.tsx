@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Movie, TVShow } from "@/services/tmdb";
 import { MovieCard } from "@/components/movie-card";
 
@@ -7,7 +7,6 @@ interface MovieGridProps {
   title?: string;
   movies: (Movie | TVShow)[];
   type?: "movie" | "tv";
-  /** Renders a "View all" link beside the title. Omitted means no link. */
   viewAllHref?: string;
 }
 
@@ -16,14 +15,17 @@ export function MovieGrid({ title, movies, type = "movie", viewAllHref }: MovieG
     <section>
       {title && (
         <div className="mb-5 flex items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold tracking-tight md:text-2xl">{title}</h2>
+          <div className="flex items-center gap-3">
+            <span className="h-5 w-1 rounded-full bg-primary shadow-sm shadow-primary/60" />
+            <h2 className="text-xl font-bold tracking-tight md:text-2xl">{title}</h2>
+          </div>
           {viewAllHref && (
             <Link
               href={viewAllHref}
-              className="group flex shrink-0 items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              className="group flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/40 hover:bg-primary/8 hover:text-primary"
             >
               View all
-              <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </Link>
           )}
         </div>

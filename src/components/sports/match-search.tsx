@@ -20,12 +20,13 @@ export function MatchSearch() {
   }, 300)
 
   return (
-    <div className="relative w-full md:w-auto">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+    <div className="relative w-full max-w-md">
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <input
         type="search"
-        placeholder="Search matches, teams or sports..."
-        className="w-full rounded-md border bg-background pl-9 pr-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring md:w-[260px]"
+        aria-label="Search matches"
+        placeholder="Search for any match, team or sport..."
+        className="h-10 w-full rounded-full border border-input bg-background py-2 pl-10 pr-4 text-sm shadow-sm transition-colors placeholder:text-muted-foreground hover:border-ring/40 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={searchParams.get("q")?.toString()}
       />

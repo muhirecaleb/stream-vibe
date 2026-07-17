@@ -4,17 +4,17 @@ import { Home } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6 text-center bg-background text-foreground">
+    <div className="relative flex min-h-screen flex-col items-center justify-center bg-background p-6 text-center text-foreground">
       <div className="space-y-6">
-        <h1 className="text-9xl font-extrabold tracking-tighter text-primary">404</h1>
+        <p className="text-7xl font-bold tracking-tighter text-primary sm:text-8xl">404</p>
         <div className="space-y-2">
-          <h2 className="text-3xl font-bold">Lost in Space?</h2>
-          <p className="text-muted-foreground text-lg max-w-md mx-auto">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Lost in Space?</h1>
+          <p className="mx-auto max-w-md text-muted-foreground">
             The page you are looking for doesn&apos;t exist or has been moved to another galaxy.
           </p>
         </div>
-        
-        <Button asChild size="lg" className="gap-2">
+
+        <Button asChild size="lg">
           <Link href="/dashboard">
             <Home className="h-5 w-5" />
             Back to Home
@@ -22,8 +22,8 @@ export default function NotFound() {
         </Button>
       </div>
 
-      {/* Decorative stars/background effect */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background opacity-50" />
+      {/* Decorative background wash */}
+      <div className="absolute inset-0 -z-10 bg-radial-[circle_at_center] from-primary/10 to-background" />
     </div>
   );
 }

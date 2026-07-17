@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { Loader2, Play } from "lucide-react";
+import { Loader2, Play, ShieldCheck } from "lucide-react";
 
 export function VideoPlayer({ 
   imdbId, 
@@ -25,24 +25,34 @@ export function VideoPlayer({
   };
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+    /* The player surface stays dark in both themes — standard for video chrome. */
+    <div className="group relative aspect-video w-full overflow-hidden rounded-xl bg-black shadow-lg ring-1 ring-border">
       {!isUnlocked ? (
-        <div 
+        /* Click-to-Play Overlay — shown before iframe is mounted */
+        <button
+          type="button"
           onClick={handlePlay}
-          className="absolute inset-0 z-30 cursor-pointer flex flex-col items-center justify-center bg-black/50 transition-colors hover:bg-black/30"
+          aria-label="Start streaming"
+          className="absolute inset-0 z-30 flex cursor-pointer flex-col items-center justify-center bg-black/40 backdrop-blur-sm transition-colors duration-300 hover:bg-black/20"
         >
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-600">
-              <Play className="ml-0.5 h-8 w-8 fill-white text-white" />
+          <div className="flex transform flex-col items-center gap-4 transition-transform group-hover:scale-105">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary shadow-[0_0_40px_hsl(var(--primary)/0.5)]">
+              <Play className="ml-1 h-9 w-9 fill-white text-white" />
             </div>
-            <p className="text-sm font-medium text-white">Click to play</p>
+            <p className="text-lg font-semibold text-white drop-shadow-lg">Click to start streaming</p>
           </div>
-        </div>
+
+          <div className="absolute bottom-6 flex items-center gap-2 rounded-full border border-white/15 bg-black/60 px-4 py-2 backdrop-blur-md">
+            <ShieldCheck className="h-4 w-4 text-emerald-400" />
+            <span className="text-xs font-medium text-white/70">Secure Player Active &amp; Ad-Guard Shielded</span>
+          </div>
+        </button>
       ) : (
+        /* Player loaded — iframe mounts fresh when user clicks */
         <>
           {isLoading && (
             <div className="absolute inset-0 z-20 flex items-center justify-center bg-black">
-               <Loader2 className="h-8 w-8 animate-spin text-white/50" />
+               <Loader2 className="h-10 w-10 animate-spin text-primary" />
             </div>
           )}
           <iframe 
@@ -57,3 +67,4 @@ export function VideoPlayer({
     </div>
   );
 }
+

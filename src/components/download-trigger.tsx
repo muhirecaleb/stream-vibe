@@ -26,11 +26,10 @@ export function DownloadTrigger({
 
   return (
     <>
-      <Button 
+      <Button
         onClick={() => setIsModalOpen(true)}
         variant="outline"
-        size="sm"
-        className="gap-2"
+        className="rounded-full border-primary/30 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground"
       >
         <Download className="h-4 w-4" />
         Download

@@ -23,11 +23,14 @@ export default async function WatchPage({ params }: PageProps) {
   const releaseYear = movie.release_date ? movie.release_date.split('-')[0] : "";
 
   return (
-    <div className="space-y-6 pb-8">
-       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-          <div className="space-y-2">
-             <h1 className="text-xl font-semibold">{movie.title}</h1>
-             <p className="max-w-2xl text-sm text-muted-foreground line-clamp-2">{movie.overview}</p>
+    <div className="space-y-8 pb-10">
+       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-3">
+             <span className="inline-block rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                Now Playing
+             </span>
+             <h1 className="text-2xl font-bold tracking-tight md:text-4xl">{movie.title}</h1>
+             <p className="line-clamp-2 max-w-3xl text-sm text-muted-foreground">{movie.overview}</p>
           </div>
           
           <div className="shrink-0">
@@ -40,10 +43,12 @@ export default async function WatchPage({ params }: PageProps) {
           </div>
        </div>
 
+       {/* Player */}
        <VideoPlayer imdbId={movie.imdb_id || ''} />
 
-       <div className="pt-6">
-          <MovieGrid title="Related" movies={recommendations.results.slice(0, 10)} />
+       {/* Related content */}
+       <div className="border-t border-border pt-8">
+          <MovieGrid title="Related Movies" movies={recommendations.results.slice(0, 10)} />
        </div>
     </div>
   );

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { X } from "lucide-react"
+import { X, ShieldCheck } from "lucide-react"
 
 export function AdvisoryBanner() {
   const [isVisible, setIsVisible] = useState(false)
@@ -21,13 +21,28 @@ export function AdvisoryBanner() {
   if (!isVisible) return null
 
   return (
-    <div className="flex items-center gap-x-4 bg-accent px-6 py-2">
-      <p className="text-xs text-muted-foreground flex-1">
-        Use a modern browser with an ad-blocker for the best streaming experience.
-      </p>
-      <button type="button" onClick={dismissBanner} aria-label="Dismiss" className="text-muted-foreground hover:text-foreground">
-        <X className="h-4 w-4" />
-      </button>
+    <div className="animate-in fade-in slide-in-from-top relative isolate flex items-center gap-x-4 border-b border-primary/20 bg-primary/5 px-5 py-2.5 duration-500">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <p className="flex items-center gap-2 text-sm leading-6">
+          <ShieldCheck className="h-4 w-4 shrink-0 text-primary" />
+          <strong className="font-semibold text-primary">Best Experience:</strong>
+          <span className="text-muted-foreground">
+            For the best streaming experience, we recommend a modern browser like{" "}
+            <strong className="font-medium text-foreground">Brave</strong>, or ensuring your{" "}
+            <strong className="font-medium text-foreground">Ad-Blocker</strong> is active.
+          </span>
+        </p>
+      </div>
+      <div className="flex flex-1 justify-end">
+        <button
+          type="button"
+          className="-m-2 shrink-0 rounded-md p-2 transition-colors hover:bg-accent"
+          onClick={dismissBanner}
+        >
+          <span className="sr-only">Dismiss</span>
+          <X className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+        </button>
+      </div>
     </div>
   )
 }

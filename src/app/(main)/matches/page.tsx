@@ -11,6 +11,14 @@ interface PageProps {
 
 export const revalidate = 300; // 5 minutes
 
+const tabClass = (isActive: boolean) =>
+  cn(
+    "rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors",
+    isActive
+      ? "bg-primary text-primary-foreground shadow-sm"
+      : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
+  );
+
 export default async function MatchesPage({ searchParams }: PageProps) {
   const { sport = "live", q = "" } = await searchParams;
   
@@ -63,44 +71,32 @@ export default async function MatchesPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="space-y-8 pb-8">
+    <div className="space-y-8 pb-10">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold">Sports</h1>
-            <p className="text-sm text-muted-foreground mt-1">Live and upcoming matches.</p>
+            <h1 className="text-3xl font-bold tracking-tight">Sports</h1>
+            <p className="mt-1.5 text-muted-foreground">
+              Watch your favorite live sports matches.
+            </p>
           </div>
           <MatchSearch />
         </div>
 
+        {/* Category Tabs */}
         {!q && (
-          <div className="flex flex-wrap gap-2 pb-2 border-b">
-            <Link
-              href="/matches?sport=live"
-              className={cn(
-                "px-3 py-1.5 rounded-md text-sm transition-colors",
-                sport === "live" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
-              )}
-            >
+          <div className="flex flex-wrap gap-2 border-b border-border pb-4">
+            <Link href="/matches?sport=live" className={tabClass(sport === "live")}>
               Live Now
             </Link>
-            <Link
-              href="/matches?sport=popular"
-              className={cn(
-                "px-3 py-1.5 rounded-md text-sm transition-colors",
-                sport === "popular" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
-              )}
-            >
+            <Link href="/matches?sport=popular" className={tabClass(sport === "popular")}>
               Popular
             </Link>
             {sports.map((s) => (
               <Link
                 key={s.id}
                 href={`/matches?sport=${s.id}`}
-                className={cn(
-                  "px-3 py-1.5 rounded-md text-sm transition-colors whitespace-nowrap",
-                  sport === s.id ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
-                )}
+                className={tabClass(sport === s.id)}
               >
                 {s.name}
               </Link>
@@ -109,18 +105,25 @@ export default async function MatchesPage({ searchParams }: PageProps) {
         )}
       </div>
 
-      <div className="space-y-10">
+      <div className="space-y-12">
         {q ? (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-base font-semibold">Search Results for "{q}"</h2>
-              <p className="text-sm text-muted-foreground">{searchResults.length} matches found</p>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="text-xl font-semibold tracking-tight md:text-2xl">
+                Results for &ldquo;{q}&rdquo;
+              </h2>
+              <p className="shrink-0 text-sm text-muted-foreground">
+                {searchResults.length} {searchResults.length === 1 ? "match" : "matches"}
+              </p>
             </div>
             {searchResults.length > 0 ? (
               <MatchGrid title="" matches={searchResults} />
             ) : (
-              <div className="py-10 border rounded-lg text-center">
-                <p className="text-sm text-muted-foreground">No matches found for "{q}". Try a different search.</p>
+              <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-12 text-center">
+                <h2 className="text-lg font-semibold">No matches found for &ldquo;{q}&rdquo;</h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Try searching for a different team or sport.
+                </p>
               </div>
             )}
           </div>
@@ -129,10 +132,13 @@ export default async function MatchesPage({ searchParams }: PageProps) {
             {sport === "live" && (
               <>
                 {liveMatches.length > 0 ? (
-                  <MatchGrid title="Live" matches={liveMatches} />
+                  <MatchGrid title="Live Matches" matches={liveMatches} />
                 ) : (
-                  <div className="py-10 border rounded-lg text-center">
-                    <p className="text-sm text-muted-foreground">No matches live right now. Check back later.</p>
+                  <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-12 text-center">
+                    <h2 className="text-lg font-semibold">No matches live right now</h2>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Check back later or explore other categories.
+                    </p>
                   </div>
                 )}
                 {popularToday.length > 0 && (
@@ -142,16 +148,19 @@ export default async function MatchesPage({ searchParams }: PageProps) {
             )}
 
             {sport === "popular" && (
-              <MatchGrid title="Popular Today" matches={popularToday} />
+              <MatchGrid title="Most Popular Today" matches={popularToday} />
             )}
 
             {sport !== "live" && sport !== "popular" && (
               <>
                 {categoryMatches.length > 0 ? (
-                  <MatchGrid title={`${currentSportName}`} matches={categoryMatches} />
+                  <MatchGrid title={`${currentSportName} Matches`} matches={categoryMatches} />
                 ) : (
-                  <div className="py-10 border rounded-lg text-center">
-                    <p className="text-sm text-muted-foreground">No {currentSportName.toLowerCase()} matches found.</p>
+                  <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-12 text-center">
+                    <h2 className="text-lg font-semibold">No {currentSportName} matches found</h2>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Try a different category or check back soon.
+                    </p>
                   </div>
                 )}
               </>

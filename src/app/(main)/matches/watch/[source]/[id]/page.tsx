@@ -27,7 +27,7 @@ export default async function SportsWatchPage({ params, searchParams }: PageProp
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-[10px] font-bold uppercase text-white">
+            <span className="flex items-center gap-1 rounded-sm bg-primary px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground">
                 <Zap className="h-3 w-3 fill-current" />
                 Live
             </span>
@@ -67,7 +67,7 @@ export default async function SportsWatchPage({ params, searchParams }: PageProp
 
       {/* Info/Warning */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="space-y-3 rounded-2xl border border-border bg-card p-6">
+          <div className="space-y-3 rounded-lg border border-border bg-card p-6">
               <div className="flex items-center gap-2 font-semibold">
                   <Globe className="h-5 w-5 shrink-0 text-primary" />
                   Stream Information
@@ -76,7 +76,7 @@ export default async function SportsWatchPage({ params, searchParams }: PageProp
                   This content is provided by third-party sources. Stream quality and availability may vary based on your location and connection speed. If a stream lags, try switching to another option if available.
               </p>
           </div>
-          <div className="space-y-3 rounded-2xl border border-primary/20 bg-primary/5 p-6">
+          <div className="space-y-3 rounded-lg border border-primary/20 bg-primary/5 p-6">
               <div className="flex items-center gap-2 font-semibold text-primary">
                   <Zap className="h-5 w-5 shrink-0" />
                   Pro Tip

@@ -22,40 +22,40 @@ export function HeroSection({ movie }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative w-full overflow-hidden rounded-2xl border border-border shadow-2xl">
+    <section className="vignette relative w-full overflow-hidden rounded-lg border border-border shadow-2xl">
       {/* Backdrop */}
       <div
         className="absolute inset-0 scale-105 bg-cover bg-center transition-transform duration-700"
         style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}
       />
       {/* Scrims */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-black/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30" />
+      <div className="absolute inset-0 bg-linear-to-r from-black/95 via-black/75 to-black/20" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-black/30" />
 
       {/* Trending badge top-right */}
-      <div className="absolute right-6 top-6 flex items-center gap-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 backdrop-blur-sm">
-        <TrendingUp className="h-3.5 w-3.5 text-amber-400" />
-        <span className="text-xs font-semibold text-amber-400">Trending #1</span>
+      <div className="absolute right-6 top-6 z-10 flex items-center gap-1.5 rounded-sm border border-gold/30 bg-gold/10 px-3 py-1 backdrop-blur-sm">
+        <TrendingUp className="h-3.5 w-3.5 text-gold" />
+        <span className="text-xs font-semibold uppercase tracking-wider text-gold">Trending #1</span>
       </div>
 
       <div className="relative z-10 flex flex-col justify-end px-6 py-14 sm:px-10 md:min-h-[520px] md:justify-center md:py-24 lg:w-3/5 lg:px-14">
         {/* Meta row */}
         <div className="mb-4 flex flex-wrap items-center gap-2.5">
-          <span className="inline-flex items-center rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground shadow-lg shadow-primary/40">
+          <span className="inline-flex items-center rounded-sm bg-primary px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-lg shadow-primary/40">
             Featured
           </span>
           {year && (
-            <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white/80 backdrop-blur-sm">
+            <span className="rounded-sm border border-white/20 bg-white/10 px-2.5 py-0.5 text-xs font-medium tabular-nums text-white/80 backdrop-blur-sm">
               {year}
             </span>
           )}
-          <span className="flex items-center gap-1 rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 text-xs font-semibold text-amber-400 backdrop-blur-sm">
-            <Star className="h-3 w-3 fill-amber-400" />
+          <span className="flex items-center gap-1 rounded-sm border border-gold/30 bg-gold/10 px-2.5 py-0.5 text-xs font-semibold tabular-nums text-gold backdrop-blur-sm">
+            <Star className="h-3 w-3 fill-gold" />
             {movie.vote_average.toFixed(1)}
           </span>
           {genres.map((id: number) =>
             genreMap[id] ? (
-              <span key={id} className="rounded-full border border-white/15 bg-white/8 px-2.5 py-0.5 text-xs text-white/70 backdrop-blur-sm">
+              <span key={id} className="rounded-sm border border-white/15 bg-white/8 px-2.5 py-0.5 text-xs text-white/70 backdrop-blur-sm">
                 {genreMap[id]}
               </span>
             ) : null
@@ -73,7 +73,7 @@ export function HeroSection({ movie }: HeroSectionProps) {
           <Button
             asChild
             size="lg"
-            className="gap-2 rounded-full bg-primary px-7 font-semibold shadow-xl shadow-primary/40 hover:bg-primary/90 hover:shadow-primary/60"
+            className="gap-2 rounded-md bg-primary px-7 font-semibold uppercase tracking-wide shadow-xl shadow-primary/40 hover:bg-primary/90 hover:shadow-primary/60"
           >
             <Link href={`/watch/${movie.id}`}>
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20">
@@ -86,7 +86,7 @@ export function HeroSection({ movie }: HeroSectionProps) {
             asChild
             size="lg"
             variant="outline"
-            className="gap-2 rounded-full border-white/20 bg-white/10 px-7 font-semibold text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
+            className="gap-2 rounded-md border-white/20 bg-white/10 px-7 font-semibold uppercase tracking-wide text-white backdrop-blur-sm hover:border-white/40 hover:bg-white/20 hover:text-white"
           >
             <Link href={`/watch/${movie.id}`}>
               <Info className="h-4.5 w-4.5" />

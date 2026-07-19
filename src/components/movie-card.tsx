@@ -38,9 +38,9 @@ export function MovieCard({ movie, type = "movie", className }: MovieCardProps) 
   return (
     <div
       className={cn(
-        "group relative aspect-2/3 overflow-hidden rounded-2xl bg-muted ring-1 ring-border/60",
-        "transition-all duration-300 hover:-translate-y-2 hover:ring-primary/60",
-        "hover:shadow-2xl hover:shadow-primary/20",
+        "group relative aspect-2/3 overflow-hidden rounded-md bg-muted ring-1 ring-border/60",
+        "transition-all duration-300 hover:-translate-y-1.5 hover:ring-primary",
+        "hover:shadow-2xl hover:shadow-primary/25",
         className
       )}
     >
@@ -60,19 +60,19 @@ export function MovieCard({ movie, type = "movie", className }: MovieCardProps) 
         )}
 
         {/* Bottom scrim */}
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/95 via-black/60 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/95 via-black/60 to-transparent" />
 
         {/* Hover overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary shadow-xl shadow-primary/50 ring-4 ring-white/20 transition-transform duration-200 group-hover:scale-110">
-            <Play className="ml-0.5 h-6 w-6 fill-white text-white" />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <span className="flex h-13 w-13 items-center justify-center rounded-full bg-primary shadow-xl shadow-primary/50 ring-2 ring-white/25 transition-transform duration-200 group-hover:scale-110">
+            <Play className="ml-0.5 h-5.5 w-5.5 fill-white text-white" />
           </span>
         </div>
 
         {/* Rating pill — top-left */}
-        <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 backdrop-blur-sm">
-          <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-          <span className="text-[11px] font-semibold text-white">{movie.vote_average.toFixed(1)}</span>
+        <div className="absolute left-2 top-2 flex items-center gap-1 rounded-sm bg-black/70 px-1.5 py-0.5 backdrop-blur-sm">
+          <Star className="h-3 w-3 fill-gold text-gold" />
+          <span className="text-[11px] font-semibold tabular-nums text-white">{movie.vote_average.toFixed(1)}</span>
         </div>
 
         {/* Title + year */}
@@ -89,11 +89,13 @@ export function MovieCard({ movie, type = "movie", className }: MovieCardProps) 
         aria-label={isFavorite ? `Remove ${title} from favorites` : `Add ${title} to favorites`}
         aria-pressed={isFavorite}
         className={cn(
-          "absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-sm transition-all duration-200",
+          "absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-sm backdrop-blur-sm transition-all duration-200",
           "focus-visible:opacity-100 group-hover:opacity-100",
+          // Active state is a light chip with a crimson heart so it stays legible
+          // against the crimson play button that shares the same hover moment.
           isFavorite
-            ? "bg-red-500/90 text-white opacity-100 shadow-lg shadow-red-500/40"
-            : "bg-black/50 text-white/80 opacity-0 hover:bg-red-500/80 hover:text-white"
+            ? "bg-white text-primary opacity-100 shadow-lg shadow-black/40"
+            : "bg-black/60 text-white/80 opacity-0 hover:bg-white hover:text-primary"
         )}
       >
         <Heart className={cn("h-4 w-4", isFavorite && "fill-current")} />

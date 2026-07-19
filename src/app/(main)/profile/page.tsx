@@ -19,14 +19,14 @@ export default function ProfilePage() {
 
       <div className="border-t border-border pt-8">
          <h2 className="mb-5 text-xl font-semibold tracking-tight">Continue Watching</h2>
-         <div className="flex items-center justify-center rounded-2xl border border-dashed border-border bg-muted/30 py-16 text-sm text-muted-foreground">
+         <div className="flex items-center justify-center rounded-lg border border-dashed border-border bg-muted/30 py-16 text-sm text-muted-foreground">
             No history yet
          </div>
       </div>
 
       <div className="border-t border-border pt-8">
          <h2 className="mb-5 text-xl font-semibold tracking-tight">My List</h2>
-         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-muted/30 py-16 text-center">
+         <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border bg-muted/30 py-16 text-center">
             <p className="text-sm text-muted-foreground">Your list is empty.</p>
             <Button asChild variant="outline" size="sm" className="mt-4">
                <Link href="/dashboard">Browse titles</Link>

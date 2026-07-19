@@ -48,7 +48,7 @@ export default function FavoritesPage() {
       {favorites.length > 0 ? (
         <MovieGrid title="Saved for later" movies={favorites} />
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-muted/30 py-20 text-center">
+        <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border bg-muted/30 py-20 text-center">
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
             <Heart className="h-6 w-6 text-primary" />
           </div>

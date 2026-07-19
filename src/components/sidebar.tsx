@@ -30,17 +30,17 @@ export function Sidebar({ className }: { className?: string }) {
           href="/dashboard"
           className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-foreground"
         >
-          <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/40">
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-md bg-primary shadow-lg shadow-primary/40">
             <Image src="/logo.png" alt="" width={22} height={22} className="object-contain" />
           </div>
-          <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-foreground to-muted-foreground bg-clip-text uppercase tracking-wide text-transparent">
             Epicstream
           </span>
         </Link>
       </div>
 
       {/* New badge */}
-      <div className="mx-4 mb-2 flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/8 px-3 py-2.5">
+      <div className="mx-4 mb-2 flex items-center gap-2 rounded-md border border-primary/20 bg-primary/8 px-3 py-2.5">
         <Sparkles className="h-4 w-4 text-primary" />
         <div>
           <p className="text-xs font-semibold text-primary">New this week</p>
@@ -60,17 +60,16 @@ export function Sidebar({ className }: { className?: string }) {
               href={item.href}
               aria-current={isActive ? "page" : undefined}
               className={cn(
-                "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                "group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                // Active rows are marked by a crimson edge rather than a full fill,
+                // keeping the chrome dark so posters stay the brightest thing on screen.
                 isActive
-                  ? "bg-primary text-primary-foreground shadow-md shadow-primary/30"
-                  : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  ? "bg-accent text-foreground before:absolute before:inset-y-1.5 before:-left-3 before:w-0.5 before:rounded-full before:bg-primary"
+                  : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
               )}
             >
-              <item.icon className={cn("h-4.5 w-4.5 shrink-0 transition-transform group-hover:scale-110", isActive && "drop-shadow-sm")} />
+              <item.icon className={cn("h-4.5 w-4.5 shrink-0 transition-transform group-hover:scale-110", isActive && "text-primary")} />
               {item.label}
-              {isActive && (
-                <span className="ml-auto h-1.5 w-1.5 rounded-full bg-primary-foreground/70" />
-              )}
             </Link>
           )
         })}

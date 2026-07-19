@@ -32,7 +32,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           {results.results.length > 0 ? (
             <MovieGrid title="" movies={results.results} />
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-muted/30 py-16 text-center">
+            <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border bg-muted/30 py-16 text-center">
               <SearchX className="mb-3 h-8 w-8 text-muted-foreground" />
               <p className="font-medium">No movies found</p>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -42,7 +42,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           )}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-muted/30 py-20 text-center">
+        <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border bg-muted/30 py-20 text-center">
           <Search className="mb-3 h-8 w-8 text-muted-foreground" />
           <p className="font-medium">Start typing to search for movies</p>
           <p className="mt-1 text-sm text-muted-foreground">Find your favorite titles instantly</p>

@@ -34,6 +34,10 @@
   --color-surface: hsl(var(--surface));
   --color-surface-foreground: hsl(var(--surface-foreground));
 
+  /* Amber highlight for ratings, trending, and other "marquee" signals. */
+  --color-gold: hsl(var(--gold));
+  --color-gold-foreground: hsl(var(--gold-foreground));
+
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
@@ -122,6 +126,21 @@
   box-shadow: 0 0 20px 4px hsl(var(--primary) / 0.4);
 }
 
+/* Darkens the corners of a backdrop so overlaid text keeps its contrast. */
+@utility vignette {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 45%,
+      hsl(0 0% 0% / 0.55) 100%
+    );
+  }
+}
+
 /* Fades the trailing edge of a horizontally scrolling row. */
 @utility scroll-fade-r {
   -webkit-mask-image: linear-gradient(to right, black calc(100% - 3rem), transparent 100%);
@@ -129,72 +148,80 @@
 }
 
 @layer base {
+  /* Light mode is a warm off-white print stock, not a cool grey UI. */
   :root {
-    --background: 220 20% 97%;
-    --foreground: 224 15% 8%;
+    --background: 30 20% 97%;
+    --foreground: 240 10% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 15% 8%;
+    --card-foreground: 240 10% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 15% 8%;
+    --popover-foreground: 240 10% 7%;
 
-    --surface: 220 18% 95%;
-    --surface-foreground: 224 15% 8%;
+    --surface: 30 16% 94%;
+    --surface-foreground: 240 10% 7%;
 
-    --primary: 258 90% 62%;
+    --primary: 355 85% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 92%;
-    --secondary-foreground: 224 15% 8%;
+    --secondary: 30 12% 91%;
+    --secondary-foreground: 240 10% 7%;
 
-    --muted: 220 14% 92%;
-    --muted-foreground: 220 10% 44%;
+    --muted: 30 12% 91%;
+    --muted-foreground: 240 6% 42%;
 
-    --accent: 258 60% 94%;
-    --accent-foreground: 258 90% 40%;
+    --accent: 355 70% 95%;
+    --accent-foreground: 355 85% 38%;
 
-    --destructive: 0 72% 51%;
+    --gold: 37 91% 45%;
+    --gold-foreground: 0 0% 100%;
+
+    --destructive: 355 85% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 88%;
-    --input: 220 13% 85%;
-    --ring: 258 90% 62%;
+    --border: 30 10% 87%;
+    --input: 30 10% 84%;
+    --ring: 355 85% 50%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 
+  /* Dark mode is the primary target: near-black with a single crimson signal. */
   .dark {
-    --background: 224 20% 6%;
-    --foreground: 210 20% 96%;
+    --background: 240 6% 4%;
+    --foreground: 30 12% 96%;
 
-    --card: 224 18% 9%;
-    --card-foreground: 210 20% 96%;
+    --card: 240 5% 9%;
+    --card-foreground: 30 12% 96%;
 
-    --popover: 224 18% 9%;
-    --popover-foreground: 210 20% 96%;
+    --popover: 240 5% 9%;
+    --popover-foreground: 30 12% 96%;
 
-    --surface: 224 20% 7%;
-    --surface-foreground: 210 20% 96%;
+    --surface: 240 6% 6%;
+    --surface-foreground: 30 12% 96%;
 
-    --primary: 258 90% 68%;
+    --primary: 355 88% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 224 15% 14%;
-    --secondary-foreground: 210 20% 96%;
+    --secondary: 240 5% 14%;
+    --secondary-foreground: 30 12% 96%;
 
-    --muted: 224 15% 14%;
-    --muted-foreground: 220 12% 58%;
+    --muted: 240 5% 14%;
+    --muted-foreground: 240 5% 60%;
 
-    --accent: 224 15% 18%;
-    --accent-foreground: 210 20% 96%;
+    --accent: 240 5% 16%;
+    --accent-foreground: 30 12% 96%;
 
-    --destructive: 0 63% 50%;
-    --destructive-foreground: 0 0% 98%;
+    --gold: 37 91% 55%;
+    --gold-foreground: 240 6% 4%;
 
-    --border: 224 15% 16%;
-    --input: 224 15% 20%;
-    --ring: 258 90% 68%;
+    --destructive: 355 88% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 5% 15%;
+    --input: 240 5% 19%;
+    --ring: 355 88% 55%;
   }
 }
 

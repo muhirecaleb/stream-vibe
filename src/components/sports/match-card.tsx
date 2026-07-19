@@ -60,7 +60,7 @@ export function MatchCard({ match }: MatchCardProps) {
                         {match.category}
                     </span>
                     {match.popular && (
-                        <span className="rounded-full bg-amber-400/20 px-2 py-0.5 text-[10px] font-bold uppercase text-amber-300">
+                        <span className="rounded-sm bg-gold/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-gold">
                             Popular
                         </span>
                     )}

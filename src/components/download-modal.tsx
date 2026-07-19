@@ -83,7 +83,7 @@ export function DownloadModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="download-modal-title"
-        className="animate-in fade-in zoom-in relative w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-popover text-popover-foreground shadow-2xl duration-200"
+        className="animate-in fade-in zoom-in relative w-full max-w-xl overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-2xl duration-200"
       >
         <div className="flex items-center justify-between gap-4 border-b border-border bg-muted/40 px-6 py-4">
           <div className="flex items-center gap-3">
@@ -107,9 +107,9 @@ export function DownloadModal({
         </div>
 
         <div className="space-y-4 p-6">
-          <div className="flex items-start gap-3 rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
-            <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-500" />
-            <p className="text-xs leading-relaxed text-amber-900 dark:text-amber-200/80">
+          <div className="flex items-start gap-3 rounded-md border border-gold/25 bg-gold/10 p-4">
+            <Info className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+            <p className="text-xs leading-relaxed text-foreground/80">
               Downloads are fulfilled via external gateways. We recommend using an ad-blocker and a VPN for the best experience on external sites.
             </p>
           </div>

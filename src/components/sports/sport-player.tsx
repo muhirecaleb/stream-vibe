@@ -9,7 +9,7 @@ export function SportPlayer({ embedUrl }: { embedUrl?: string }) {
 
   if (!embedUrl) {
     return (
-      <div className="relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-dashed border-border bg-muted/30 p-6 text-center">
+      <div className="relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-dashed border-border bg-muted/30 p-6 text-center">
           <Trophy className="mb-4 h-12 w-12 text-muted-foreground opacity-40" />
           <h2 className="text-lg font-semibold">No streams available</h2>
           <p className="mt-2 max-w-md text-sm text-muted-foreground">
@@ -24,7 +24,7 @@ export function SportPlayer({ embedUrl }: { embedUrl?: string }) {
 
   return (
     /* The player surface stays dark in both themes — standard for video chrome. */
-    <div className="group relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-border">
+    <div className="group relative aspect-video w-full overflow-hidden rounded-lg bg-black shadow-lg ring-1 ring-border">
       {/* Loading State */}
       {isLoading && (
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-black">

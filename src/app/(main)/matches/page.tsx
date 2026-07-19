@@ -119,7 +119,7 @@ export default async function MatchesPage({ searchParams }: PageProps) {
             {searchResults.length > 0 ? (
               <MatchGrid title="" matches={searchResults} />
             ) : (
-              <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-12 text-center">
+              <div className="rounded-lg border border-dashed border-border bg-muted/30 p-12 text-center">
                 <h2 className="text-lg font-semibold">No matches found for &ldquo;{q}&rdquo;</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
                   Try searching for a different team or sport.
@@ -134,7 +134,7 @@ export default async function MatchesPage({ searchParams }: PageProps) {
                 {liveMatches.length > 0 ? (
                   <MatchGrid title="Live Matches" matches={liveMatches} />
                 ) : (
-                  <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-12 text-center">
+                  <div className="rounded-lg border border-dashed border-border bg-muted/30 p-12 text-center">
                     <h2 className="text-lg font-semibold">No matches live right now</h2>
                     <p className="mt-2 text-sm text-muted-foreground">
                       Check back later or explore other categories.
@@ -156,7 +156,7 @@ export default async function MatchesPage({ searchParams }: PageProps) {
                 {categoryMatches.length > 0 ? (
                   <MatchGrid title={`${currentSportName} Matches`} matches={categoryMatches} />
                 ) : (
-                  <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-12 text-center">
+                  <div className="rounded-lg border border-dashed border-border bg-muted/30 p-12 text-center">
                     <h2 className="text-lg font-semibold">No {currentSportName} matches found</h2>
                     <p className="mt-2 text-sm text-muted-foreground">
                       Try a different category or check back soon.

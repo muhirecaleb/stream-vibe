@@ -41,7 +41,7 @@ export default async function WatchTVPage({ params, searchParams }: PageProps) {
                 <div className="flex flex-wrap items-center gap-3">
                    <span className="rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">Now Playing</span>
                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+                      <Star className="h-3 w-3 fill-gold text-gold" />
                       {tvShow.vote_average.toFixed(1)}
                    </div>
                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -81,7 +81,7 @@ export default async function WatchTVPage({ params, searchParams }: PageProps) {
                 </div>
              </div>
              
-             <div className="h-fit space-y-4 rounded-2xl border border-border bg-card p-6">
+             <div className="h-fit space-y-4 rounded-lg border border-border bg-card p-6">
                 <div className="flex items-center gap-2 font-semibold">
                    <ListVideo className="h-5 w-5 text-primary" />
                    Series Info

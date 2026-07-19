@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Star, Heart, Play } from "lucide-react";
 import { type Movie, type TVShow } from "@/services/tmdb";
 import { cn } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface MovieCardProps {
   movie: Movie | TVShow;
@@ -14,15 +14,14 @@ interface MovieCardProps {
 }
 
 export function MovieCard({ movie, type = "movie", className }: MovieCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const favorites: { id: number }[] = JSON.parse(localStorage.getItem("favorites") || "[]");
+    return favorites.some((fav) => fav.id === movie.id);
+  });
   const title = (movie as Movie).title || (movie as TVShow).name;
   const date = (movie as Movie).release_date || (movie as TVShow).first_air_date;
   const link = type === "movie" ? `/watch/${movie.id}` : `/watch/tv/${movie.id}`;
-
-  useEffect(() => {
-    const favorites: { id: number }[] = JSON.parse(localStorage.getItem("favorites") || "[]");
-    setIsFavorite(favorites.some((fav) => fav.id === movie.id));
-  }, [movie.id]);
 
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();

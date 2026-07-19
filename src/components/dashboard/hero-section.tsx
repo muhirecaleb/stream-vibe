@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Play, Info, Star, Clock, TrendingUp } from "lucide-react";
+import { Play, Info, Star, TrendingUp } from "lucide-react";
 import { type Movie } from "@/services/tmdb";
 import { Button } from "@/components/ui/button";
 
@@ -11,7 +11,7 @@ export function HeroSection({ movie }: HeroSectionProps) {
   if (!movie) return null;
 
   const year = movie.release_date ? new Date(movie.release_date).getFullYear() : null;
-  const genres = (movie as any).genre_ids?.slice(0, 3) ?? [];
+  const genres = (movie as { genre_ids?: number[] }).genre_ids?.slice(0, 3) ?? [];
 
   const genreMap: Record<number, string> = {
     28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy",

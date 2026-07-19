@@ -11,23 +11,16 @@ export default function FavoritesPage() {
   const [favorites, setFavorites] = useState<(Movie | TVShow)[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadFavorites = () => {
-    if (typeof window !== "undefined") {
+  useEffect(() => {
+    const load = () => {
       const saved = JSON.parse(localStorage.getItem("favorites") || "[]");
       setFavorites(saved);
       setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadFavorites();
-
-    const handleUpdate = () => {
-      loadFavorites();
     };
 
-    window.addEventListener("favorites-updated", handleUpdate);
-    return () => window.removeEventListener("favorites-updated", handleUpdate);
+    load();
+    window.addEventListener("favorites-updated", load);
+    return () => window.removeEventListener("favorites-updated", load);
   }, []);
 
   if (loading) {

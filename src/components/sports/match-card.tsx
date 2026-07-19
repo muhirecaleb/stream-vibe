@@ -30,11 +30,15 @@ export function MatchCard({ match }: MatchCardProps) {
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-linear-to-br from-secondary to-muted p-4 text-center">
             <div className="mb-4 flex items-center gap-4">
                 {match.teams?.home?.badge && (
-                    <img src={`https://streamed.pk${match.teams.home.badge}`} alt="" className="h-12 w-12 object-contain" />
+                    <div className="relative h-12 w-12">
+                      <Image src={`https://streamed.pk${match.teams.home.badge}`} alt="" fill className="object-contain" />
+                    </div>
                 )}
                 <span className="text-lg font-bold italic text-muted-foreground">VS</span>
                 {match.teams?.away?.badge && (
-                    <img src={`https://streamed.pk${match.teams.away.badge}`} alt="" className="h-12 w-12 object-contain" />
+                    <div className="relative h-12 w-12">
+                      <Image src={`https://streamed.pk${match.teams.away.badge}`} alt="" fill className="object-contain" />
+                    </div>
                 )}
             </div>
             <div className="text-xs font-medium uppercase tracking-widest text-muted-foreground">{match.category}</div>
